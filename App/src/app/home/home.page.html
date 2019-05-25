@@ -1,23 +1,34 @@
 <ion-content>
-  <img id="logo" src="assets/img/logo.jpg">
+  <div class="ion-padding" *ngIf="!checkingUser">
 
-  <ion-item>
-    <ion-label position="floating" color='medium'>R.A.</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
+    <img id="logo" src="assets/img/logo.jpg">
 
-  <ion-item>
-    <ion-label position="floating" color='medium'>Senha</ion-label>
-    <ion-input type="password"></ion-input>
-  </ion-item>
+    <br><ion-label color="danger" id="inval" *ngIf="invalido">* R.A. ou senha inválida :(</ion-label><br>
 
-  <ion-button ion-button color="dark" 
+    <ion-item>
+      <ion-label position="floating" color='medium'>R.A.</ion-label>
+      <ion-input [(ngModel)]="ra"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color='medium'>Senha</ion-label>
+      <ion-input [(ngModel)]="senha" type="password"></ion-input>
+    </ion-item><br>
+
+    <ion-button color="dark" 
               expand="block"
               fill="outline"
               size="large"
-              (click)="logar()">
-  <ion-icon name="lock"></ion-icon>
-  Entrar</ion-button><br>
+              (click)="login()">
+              <ion-spinner *ngIf="showLoading"></ion-spinner>
+              <ion-label *ngIf="!showLoading">Entrar</ion-label>
+    </ion-button><br>
 
-  <ion-label id="center">Ainda não possui cadastro? <a (click)="cadastrar()">Clique aqui.</a></ion-label>
+    <ion-label id="centerEsqueci">Esqueceu sua senha? <a (click)="esqueci()">Clique aqui.</a></ion-label><br>
+    <ion-label id="centerCadastro">Ainda não possui cadastro? <a (click)="registrar()">Clique aqui.</a></ion-label>
+  </div>
+
+  <div id="centerLoading" class="loading" *ngIf="checkingUser">
+    <ion-spinner></ion-spinner>
+  </div>
 </ion-content>
