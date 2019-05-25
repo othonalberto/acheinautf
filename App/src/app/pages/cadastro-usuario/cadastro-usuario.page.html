@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button slot="start" color='dark'>Voltar</ion-back-button>
+      <ion-buttons slot="start">
+        <ion-back-button color="dark">Voltar</ion-back-button>
+      </ion-buttons>
     <ion-title>Cadastro de Usuário</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,26 +10,26 @@
 <ion-content>
   <ion-item>
     <ion-label>R.A.: </ion-label>
-    <ion-input [(ngModel)]="ra"></ion-input><br>
-  </ion-item>
+    <ion-input [(ngModel)]="ra"></ion-input>
+  </ion-item><br>
   <ion-item>
     <ion-label>Nome: </ion-label>
-    <ion-input [(ngModel)]="nome"></ion-input><br>
-  </ion-item>
+    <ion-input [(ngModel)]="nome"></ion-input>
+  </ion-item><br>
   <ion-item>
     <ion-label>Contato: </ion-label> 
-    <ion-input [(ngModel)]="contato"></ion-input><br>
-  </ion-item>
+    <ion-input [(ngModel)]="contato"></ion-input>
+  </ion-item><br>
   <ion-item>
     <ion-label>Campus:</ion-label>
     <ion-select placeholder="Selecione" [(ngModel)]="campus">
       <ion-select-option *ngFor="let c of listaCampus;" [value]="c">{{c}}</ion-select-option>
     </ion-select>
-  </ion-item>
+  </ion-item><br>
   <ion-item>
     <ion-label>Senha:</ion-label> 
-    <ion-input type="password" [(ngModel)]="senha"></ion-input><br>
-  </ion-item>
+    <ion-input type="password" [(ngModel)]="senha"></ion-input>
+  </ion-item><br>
 
   <ion-button ion-button color="dark" 
               expand="block"

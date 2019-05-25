@@ -6,7 +6,25 @@
     margin-right: auto;
 }
 
-#center{
+#centerCadastro{
     display: block;
     text-align: center;
+}
+
+#centerEsqueci{
+    display: block;
+    text-align: center;
+    font-size: 15px;
+}
+
+#inval{
+    font-size: 15px;
+}
+
+#centerLoading{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

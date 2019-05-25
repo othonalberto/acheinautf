@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -8,23 +11,28 @@ import { Router } from '@angular/router';
 })
 export class CadastroUsuarioPage implements OnInit {
 
-  constructor(public router: Router) { }
+  constructor(private firebase: FirebaseService,
+              private usuario: UsuarioService,
+              private alert: AlertController,
+              public router: Router) { }
 
-  ra; nome; contato; campus; senha; dados;
+  ra; email; nome; contato; campus; senha;
 
   public listaCampus = ['Apucarana', 'Campo Mourão', 'Cornélio Procópio', 'Curitiba', 'Dois Vizinhos', 'Francisco Beltrão', 
               'Guarapuava', 'Londrina', 'Medianeira', 'Pato Branco', 'Ponta Grossa', 'Santa Helena', 'Toledo'];
 
   ngOnInit() {
-  }
+  } 
 
-  validaDados(){
-    console.log("Dados válidos")
-
-    this.dados = true;
-
-    if(this.dados){
-      this.router.navigateByUrl('/home')
+  public async validaDados(){
+    this.email = this.ra + '@utfapp.com';
+    try {
+      await this.usuario.registar(this.email, this.senha);
+      // AQUI PRECISA TROCAR O 'logado' PARA O NOME DA PÁGINA PRINCIPAL DO APLICATIVO E RETIRAR O console.log()
+      console.log("Usuario registrado com sucesso!!");
+      //this.router.navigateByUrl('/logado');
+    } catch (erro) {
+      console.log(erro);
     }
   }
 
