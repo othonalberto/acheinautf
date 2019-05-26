@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseService } from 'src/app/services/firebase.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { AlertController } from '@ionic/angular';
+declare var require: any
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -11,27 +10,88 @@ import { AlertController } from '@ionic/angular';
 })
 export class CadastroUsuarioPage implements OnInit {
 
-  constructor(private firebase: FirebaseService,
-              private usuario: UsuarioService,
-              private alert: AlertController,
-              public router: Router) { }
+  constructor(private usuario: UsuarioService, public router: Router) { }
 
-  ra; email; nome; contato; campus; senha;
-
+  // Variáveis de preenchimeto do usuário.
+  ra; email; nome; contato; campus; senha; dicaSenha;
+  
+  // Lista com todos os campus da UTFPR até o momento.
   public listaCampus = ['Apucarana', 'Campo Mourão', 'Cornélio Procópio', 'Curitiba', 'Dois Vizinhos', 'Francisco Beltrão', 
-              'Guarapuava', 'Londrina', 'Medianeira', 'Pato Branco', 'Ponta Grossa', 'Santa Helena', 'Toledo'];
+                        'Guarapuava', 'Londrina', 'Medianeira', 'Pato Branco', 'Ponta Grossa', 'Santa Helena', 'Toledo'];
+
+  // Variáveis que mostram um label na tela caso algum erro ocorra.
+  senhaInvalida     = false; 
+  camposInvalidos   = false;
+  usuarioCadastrado = false;
+
+  // Variáveis para conexão com a API.
+  input;
+  axios = require('axios');
+  url = 'http://127.0.0.1:8080';
+  urlRequest = this.url + '/usuario/';
 
   ngOnInit() {
   } 
 
   public async validaDados(){
+    
+    // Se algum campo for deixado em branco mostra um aviso ao usuário e não continua.
+    if(this.ra     == undefined ||
+      this.nome    == undefined ||
+      this.contato == undefined ||
+      this.campus  == undefined ||
+      this.senha   == undefined){
+
+     this.senhaInvalida     = false; 
+     this.camposInvalidos   = true ;
+     this.usuarioCadastrado = false;
+     return;
+    }
+    
+    // Manipulação com a API.
+    this.urlRequest = this.url + '/usuario/criar/';
+    // Adicionar campo para dica de senha (quando houver).
+    this.input = '{"id": "'+this.ra+'","nome": "'+this.nome+'","campus": "'+this.campus+'","contato": "'+this.contato+'","senha": "'+this.senha+'"}';
+    this.input = JSON.parse(this.input);
+    this.axios.post(this.urlRequest, this.input)
+    .then(function (resposta) {
+      console.log(resposta.data)
+    })
+    .catch(function (error) {
+      console.log('Erro: ' + error)
+    });
+
+    // Firebase só aceita email, então adiciona-se um email padrão a todos os R.A.
     this.email = this.ra + '@utfapp.com';
+
+    // Registra o usuário no Firebase e limpa todos os campos.
     try {
       await this.usuario.registar(this.email, this.senha);
       // AQUI PRECISA TROCAR O 'logado' PARA O NOME DA PÁGINA PRINCIPAL DO APLICATIVO E RETIRAR O console.log()
       console.log("Usuario registrado com sucesso!!");
       //this.router.navigateByUrl('/logado');
+
+      this.ra                = undefined;
+      this.nome              = undefined;
+      this.contato           = undefined;
+      this.campus            = undefined;
+      this.senha             = undefined;
+      this.senhaInvalida     = false; 
+      this.camposInvalidos   = false;
+      this.usuarioCadastrado = false;
     } catch (erro) {
+      // Trata possíveis erros detectados em testes.
+      if (erro == 'Error: The email address is already in use by another account.'){
+        this.senhaInvalida     = false; 
+        this.camposInvalidos   = false;
+        this.usuarioCadastrado = true ;
+      } else if (erro == 'Error: Password should be at least 6 characters' ||
+                 erro ==  'Error: createUserWithEmailAndPassword failed: Second argument "password" must be a valid string.'){
+
+        this.senhaInvalida     = true ; 
+        this.camposInvalidos   = false;
+        this.usuarioCadastrado = false;
+      }
       console.log(erro);
     }
   }
