@@ -1,0 +1,21 @@
+{
+    "name": "othonalberto/projetoweb",
+    "authors": [
+        {
+            "name": "Othon Alberto",
+            "email": "othonalberto@gmail.com"
+        }
+    ],
+    "autoload": {
+     "classmap": [
+         "./"
+     ]   
+    },
+    "require": {
+        "pecee/simple-router": "4.2.0.6",
+        "twbs/bootstrap": "4.3.1"
+    },
+    "require-dev": {
+        "nunomaduro/phpinsights": "^1.3"
+    }
+}
