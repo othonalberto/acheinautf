@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-label color="danger" class="inval" *ngIf="senhaInvalida">* A senha deve ter no mínimo 6 caracteres</ion-label>
+  <ion-label color="danger" class="inval" *ngIf="camposInvalidos">* Informe todos os campos</ion-label>
+  <ion-label color="danger" class="inval" *ngIf="usuarioCadastrado">* R.A. já cadastrado</ion-label>
+
   <ion-item>
     <ion-label>R.A.: </ion-label>
     <ion-input [(ngModel)]="ra"></ion-input>
@@ -29,6 +33,10 @@
   <ion-item>
     <ion-label>Senha:</ion-label> 
     <ion-input type="password" [(ngModel)]="senha"></ion-input>
+  </ion-item><br>
+  <ion-item>
+    <ion-label>Dica de senha:</ion-label> 
+    <ion-input [(ngModel)]="dicaSenha"></ion-input>
   </ion-item><br>
 
   <ion-button ion-button color="dark" 
