@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'cadastro-usuario', loadChildren: './pages/cadastro-usuario/cadastro-usuario.module#CadastroUsuarioPageModule' },
+  { path: 'cadastro-post', loadChildren: './pages/cadastro-post/cadastro-post.module#CadastroPostPageModule' },
 ];
 
 @NgModule({
