@@ -36,11 +36,12 @@ export class CadastroUsuarioPage implements OnInit {
   public async validaDados(){
     
     // Se algum campo for deixado em branco mostra um aviso ao usuário e não continua.
-    if(this.ra     == undefined ||
-      this.nome    == undefined ||
-      this.contato == undefined ||
-      this.campus  == undefined ||
-      this.senha   == undefined){
+    if(this.ra       == undefined ||
+      this.nome      == undefined ||
+      this.contato   == undefined ||
+      this.campus    == undefined ||
+      this.senha     == undefined ||
+      this.dicaSenha == undefined){
 
      this.senhaInvalida     = false; 
      this.camposInvalidos   = true ;
@@ -51,8 +52,9 @@ export class CadastroUsuarioPage implements OnInit {
     // Manipulação com a API.
     this.urlRequest = this.url + '/usuario/criar/';
     // Adicionar campo para dica de senha (quando houver).
-    this.input = '{"id": "'+this.ra+'","nome": "'+this.nome+'","campus": "'+this.campus+'","contato": "'+this.contato+'","senha": "'+this.senha+'"}';
+    this.input = '{"id": "'+this.ra+'","nome": "'+this.nome+'","campus": "'+this.campus+'","contato": "'+this.contato+'","senha": "'+this.senha+'","dicasenha": "'+this.dicaSenha+'"}';
     this.input = JSON.parse(this.input);
+    console.log(this.input);
     this.axios.post(this.urlRequest, this.input)
     .then(function (resposta) {
       console.log(resposta.data)
@@ -76,6 +78,7 @@ export class CadastroUsuarioPage implements OnInit {
       this.contato           = undefined;
       this.campus            = undefined;
       this.senha             = undefined;
+      this.dicaSenha         = undefined;
       this.senhaInvalida     = false; 
       this.camposInvalidos   = false;
       this.usuarioCadastrado = false;

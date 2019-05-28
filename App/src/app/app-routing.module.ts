@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'cadastro-usuario', loadChildren: './pages/cadastro-usuario/cadastro-usuario.module#CadastroUsuarioPageModule' },
   { path: 'cadastro-post', loadChildren: './pages/cadastro-post/cadastro-post.module#CadastroPostPageModule' },
+  { path: 'dica-senha', loadChildren: './pages/dica-senha/dica-senha.module#DicaSenhaPageModule' },
 ];
 
 @NgModule({

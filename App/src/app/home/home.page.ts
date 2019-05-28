@@ -47,8 +47,7 @@ export class HomePage {
   }
 
   esqueci(){
-    // Não implementado
-    console.log("Não implementado");
+    this.router.navigateByUrl('/dica-senha');
   }
 
 }
