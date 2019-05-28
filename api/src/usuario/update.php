@@ -11,6 +11,7 @@ if (!empty($dadosEntradas->id) && !empty($dadosEntradas->nome) && !empty($dadosE
     $usuario->setContato($dadosEntradas->contato);
     $usuario->setCampus($dadosEntradas->campus);
     $usuario->setSenha($dadosEntradas->senha);
+    $usuario->setDicaSenha($dadosEntradas->dicasenha);
 
     if ($usuario->update()) {
         http_response_code(201);

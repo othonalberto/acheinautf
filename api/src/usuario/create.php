@@ -5,12 +5,13 @@ require_once(__DIR__ . '/header.php');
 $dadosEntradas = json_decode(file_get_contents("php://input"));
 
 if (!empty($dadosEntradas->id) && !empty($dadosEntradas->nome) && !empty($dadosEntradas->contato) &&
-    !empty($dadosEntradas->campus) && !empty($dadosEntradas->senha)) {
+    !empty($dadosEntradas->campus) && !empty($dadosEntradas->senha) && !empty($dadosEntradas->dicasenha)) {
     $usuario->setId($dadosEntradas->id);
     $usuario->setNome($dadosEntradas->nome);
     $usuario->setContato($dadosEntradas->contato);
     $usuario->setCampus($dadosEntradas->campus);
     $usuario->setSenha(md5($dadosEntradas->senha));
+    $usuario->setDicaSenha($dadosEntradas->dicasenha);
 
     if ($usuario->create()) {
         http_response_code(201);

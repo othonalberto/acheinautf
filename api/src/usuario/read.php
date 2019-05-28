@@ -12,7 +12,8 @@ while ($u = $query->fetchObject("Usuario")) {
         "nome"      => $u->getNome(),
         "campus"    => $u->getCampus(),
         "contato"   => $u->getContato(),
-        "senha"     => $u->getSenha()
+        "senha"     => $u->getSenha(),
+        "dicasenha" => $u->getDicaSenha()
     );
 
     array_push($array_resposta["respostas"], $item);

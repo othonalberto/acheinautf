@@ -8,6 +8,7 @@ CREATE TABLE `usuarios` (
   `campus` varchar(255) NOT NULL DEFAULT '',
   `contato` text NOT NULL,
   `senha` varchar(255) NOT NULL DEFAULT '',
+  `dicasenha` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
