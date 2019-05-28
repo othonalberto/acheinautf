@@ -8,6 +8,7 @@ class Usuario {
     private $campus;
     private $contato;
     private $senha;
+    private $dicasenha;
 
     public function __construct($db = null) {
         $this->conn = $db;
@@ -29,13 +30,14 @@ class Usuario {
     }
 
     public function create() {
-        $query = $this->conn->prepare("INSERT INTO usuarios(id, nome, campus, contato, senha) VALUES(:id, :nome, :campus, :contato, :senha)");
+        $query = $this->conn->prepare("INSERT INTO usuarios(id, nome, campus, contato, senha, dicasenha) VALUES(:id, :nome, :campus, :contato, :senha, :dicasenha)");
 
         $query->bindParam(':id',        $this->id);
         $query->bindParam(':nome',      $this->nome);
         $query->bindParam(':campus',    $this->campus);
         $query->bindParam(':contato',   $this->contato);
         $query->bindParam(':senha',     $this->senha);
+        $query->bindParam(':dicasenha', $this->dicasenha);
 
         $query->execute();
 
@@ -43,12 +45,13 @@ class Usuario {
     }
 
     public function update() {
-        $query = $this->conn->prepare("UPDATE usuarios SET id=:id, nome=:nome, campus=:campus, contato=:contato, senha=:senha WHERE id=:id");
+        $query = $this->conn->prepare("UPDATE usuarios SET id=:id, nome=:nome, campus=:campus, contato=:contato, senha=:senha, dicasenha=:dicasenha WHERE id=:id");
         $query->bindParam(':id',        $this->id);
         $query->bindParam(':nome',      $this->nome);
         $query->bindParam(':campus',    $this->campus);
         $query->bindParam(':contato',   $this->contato);
         $query->bindParam(':senha',     $this->senha);
+        $query->bindParam(':dicasenha', $this->dicasenha);
         
         $query->execute();
 
@@ -185,6 +188,23 @@ class Usuario {
     public function setDb($db)
     {
         $this->db = $db;
+
+        return $this;
+    }
+
+    public function getDicaSenha()
+    {
+        return $this->dicasenha;
+    }
+
+    /**
+     * Set the value of db
+     *
+     * @return  self
+     */ 
+    public function setDicaSenha($dicasenha)
+    {
+        $this->dicasenha = $dicasenha;
 
         return $this;
     }
