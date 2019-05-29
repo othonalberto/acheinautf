@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title color="dark">Esqueci minha senha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img id="logo" src="assets/img/logo.jpg"><br>
+  
+  <ion-label color="danger" class="inval" *ngIf="raInvalido">* O R.A. informado está errado ou não existe.</ion-label>
+  
+  <ion-item>
+    <ion-label>R.A.: </ion-label>
+    <ion-input [(ngModel)]="ra"></ion-input>
+  </ion-item><br>
+
+  <ion-button color="dark" 
+              expand="block"
+              fill="outline"
+              size="large"
+              (click)="mostrar()">
+              <ion-label>Mostrar dica</ion-label>
+  </ion-button><br>
+</ion-content>

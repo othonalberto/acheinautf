@@ -28,7 +28,7 @@ export class CadastroPostPage implements OnInit {
   // Variáveis para conexão com a API.
   input;
   axios = require('axios');
-  url = 'http://127.0.0.1:8001';
+  url = 'http://127.0.0.1:8080';
   urlRequest = this.url + '/usuario/';
 
   ngOnInit() {
