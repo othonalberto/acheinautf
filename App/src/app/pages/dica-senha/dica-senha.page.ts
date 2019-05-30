@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { read } from 'fs';
 declare var require: any
 
 @Component({
