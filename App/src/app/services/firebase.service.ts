@@ -10,13 +10,13 @@ export class FirebaseService {
 
   constructor() {
     const config = {
-      apiKey: "AIzaSyDu9vj35kXjR25hOUQknVYh0_q5TMh5kf8",
-      authDomain: "teste-login-dda3d.firebaseapp.com",
-      databaseURL: "https://teste-login-dda3d.firebaseio.com",
-      projectId: "teste-login-dda3d",
-      storageBucket: "teste-login-dda3d.appspot.com",
-      messagingSenderId: "1073249846496",
-      appId: "1:1073249846496:web:a101a851b53c9f46"
+      apiKey: "AIzaSyBrZYUIJiu9qVzSwVyHAapZeaKXBdDS8dk",
+      authDomain: "acheinautf.firebaseapp.com",
+      databaseURL: "https://acheinautf.firebaseio.com",
+      projectId: "acheinautf",
+      storageBucket: "acheinautf.appspot.com",
+      messagingSenderId: "875345256004",
+      appId: "1:875345256004:web:c85fd6de3d864000"
     };
     firebase.initializeApp(config);
   }
