@@ -30,6 +30,9 @@ SimpleRouter::get('/post/{id?}', function($id = 'all') {
     require('post/read.php');
 });
 
+SimpleRouter::get('/post/usuario/{id?}', function($id) {
+    require('post/readByUserId.php');
+});
 
 SimpleRouter::post('/post/criar/', function() {
     require('post/create.php');
