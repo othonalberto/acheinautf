@@ -59,7 +59,8 @@ export class CadastroUsuarioPage implements OnInit {
     this.input = '{"id": "'+this.ra+'","nome": "'+this.nome+'","campus": "'+this.campus+'","contato": "'+this.contato+'","senha": "'+this.senha+'","dicasenha": "'+this.dicaSenha+'"}';
     this.input = JSON.parse(this.input);
     console.log(this.input);
-    this.axios.post(this.urlRequest, this.input)
+    
+    await this.axios.post(this.urlRequest, this.input)
     .then(function (resposta) {
       console.log(resposta.data)
     })
