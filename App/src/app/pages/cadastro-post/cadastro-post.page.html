@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar color="warning">
-      <ion-buttons slot="start">
-        <ion-back-button color="dark">Voltar</ion-back-button>
-      </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()">
+        <ion-icon name="arrow-back" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title color="dark">Novo post</ion-title>
   </ion-toolbar>
 </ion-header>

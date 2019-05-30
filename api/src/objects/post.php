@@ -34,7 +34,7 @@ class Post {
     public function readByUserID($userId) {
         $query = null;
 
-        $query = $this->conn->prepare("SELECT * from posts WHERE id=:id AND achado=0");
+        $query = $this->conn->prepare("SELECT * from posts WHERE donopost=:id AND achado=0");
         $query->bindParam(':id',        $userId);
 
         $query->execute();
