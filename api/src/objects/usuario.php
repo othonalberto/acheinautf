@@ -64,9 +64,6 @@ class Usuario {
         
         $query->execute();
 
-        var_dump($query);
-        echo $this->id;
-
         return $query->rowCount();
 
     }

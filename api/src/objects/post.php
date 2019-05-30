@@ -20,9 +20,9 @@ class Post {
         $query = null;
 
         if ($id == 'all') {
-            $query = $this->conn->prepare("SELECT * from posts WHERE achado=0");
+            $query = $this->conn->prepare("SELECT * from posts WHERE achado=0 ORDER BY datahorapost DESC");
         } else {
-            $query = $this->conn->prepare("SELECT * from posts WHERE id=:id AND achado=0");
+            $query = $this->conn->prepare("SELECT * from posts WHERE id=:id AND achado=0 ORDER BY datahorapost DESC");
             $query->bindParam(':id',        $id);
         }
 
@@ -34,7 +34,7 @@ class Post {
     public function readByUserID($userId) {
         $query = null;
 
-        $query = $this->conn->prepare("SELECT * from posts WHERE donopost=:id AND achado=0");
+        $query = $this->conn->prepare("SELECT * from posts WHERE donopost=:id AND achado=0 ORDER BY datahorapost DESC");
         $query->bindParam(':id',        $userId);
 
         $query->execute();
