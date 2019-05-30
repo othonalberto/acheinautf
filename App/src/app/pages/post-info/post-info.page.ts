@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-info',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostInfoPage implements OnInit {
 
-  constructor() { }
+  constructor(public modal: ModalController) { }
+
+
+  @Input() post_info : Object;
 
   ngOnInit() {
+    console.log("depois", this.post_info);
   }
 
+  voltar() {
+    this.modal.dismiss({
+      retorno: null
+    });  
+  }
 }

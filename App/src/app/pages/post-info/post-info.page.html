@@ -1,9 +1,30 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>post-info</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+    <ion-toolbar color="warning">
+      <ion-buttons slot="start">
+        <ion-button (click)="voltar()">
+          <ion-icon name="arrow-back" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title color="dark">Informações</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <br>
+    <ion-item>
+        <img src="assets/img/logo.jpg">
+    </ion-item><br><br>
+    <ion-item>
+      <ion-label>Título: </ion-label>
+      <ion-label>{{post.titulo}}</ion-label>
+    </ion-item><br>
+    <ion-item>
+      <ion-label>Lugar: </ion-label>
+      <ion-label>{{post.lugar}}</ion-label>
+    </ion-item><br>
+    <ion-item>
+      <ion-label>Descrição: </ion-label>
+      <ion-label>{{post.descricao}}</ion-label>
+    </ion-item>
+  </ion-content>
+  

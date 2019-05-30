@@ -19,7 +19,7 @@ export class HomePage {
   constructor(public usuario: UsuarioService, public router: Router) {
     this.usuario.getUser().subscribe(user => {
       // AQUI PRECISA TROCAR O console.log() POR 'this.router.navigateByUrl('/logado')' TROCANDO 'logado' PELA PAGINA PRINCIPAL DO APP
-      (user.isOnline) ? console.log("Usuario já logado...") : this.checkingUser = false;
+      (user.isOnline) ? this.router.navigateByUrl('/tabs') : this.checkingUser = false;
     });
   }
 
@@ -29,9 +29,8 @@ export class HomePage {
       this.showLoading = true;
       await this.usuario.login(this.email, this.senha);
       this.showLoading = true;
-      // AQUI PRECISA TROCAR O 'logado' PARA O NOME DA PÁGINA PRINCIPAL DO APLICATIVO E RETIRAR O console.log()
-      console.log("Usuario logado com sucesso!!");
-      //this.router.navigateByUrl('/logado');
+      
+      this.router.navigateByUrl('/tabs');
     } catch (erro){
       this.showLoading = false;
       this.ra = '';

@@ -1,3 +1,4 @@
+import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditaPostPage implements OnInit {
 
-  constructor() { }
+  constructor(public modal: ModalController) { }
 
   ngOnInit() {
+  }
+
+  public voltar() {
+    this.modal.dismiss({
+      retorno: null
+    })
   }
 
 }

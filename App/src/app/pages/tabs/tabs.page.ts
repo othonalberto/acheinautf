@@ -1,4 +1,6 @@
+import { CadastroPostPage } from './../cadastro-post/cadastro-post.page';
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  constructor() { }
+  constructor(public modal: ModalController) { }
 
   ngOnInit() {
   }
 
+  async showCadastroPost(){
+    const cadastro = await this.modal.create({
+      component: CadastroPostPage
+    });
+    await cadastro.present();
+  }
 }

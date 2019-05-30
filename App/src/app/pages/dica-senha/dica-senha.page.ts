@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 declare var require: any
 
 @Component({
@@ -9,7 +10,8 @@ declare var require: any
 })
 export class DicaSenhaPage implements OnInit {
 
-  constructor(public alert: AlertController) { }
+  constructor(public alert: AlertController,
+              public router: Router) { }
 
   ngOnInit() {
   }
@@ -22,6 +24,10 @@ export class DicaSenhaPage implements OnInit {
   axios = require('axios');
   url = 'http://127.0.0.1:8080';
   urlRequest = this.url + '/usuario/';
+
+  public voltar() {
+    this.router.navigateByUrl("/home");
+  }
 
   async mostrar(){
     if(this.ra == undefined){
