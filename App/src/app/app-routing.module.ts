@@ -8,6 +8,13 @@ const routes: Routes = [
   { path: 'cadastro-usuario', loadChildren: './pages/cadastro-usuario/cadastro-usuario.module#CadastroUsuarioPageModule' },
   { path: 'cadastro-post', loadChildren: './pages/cadastro-post/cadastro-post.module#CadastroPostPageModule' },
   { path: 'dica-senha', loadChildren: './pages/dica-senha/dica-senha.module#DicaSenhaPageModule' },
+  { path: 'tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
+  { path: 'feed', loadChildren: './pages/feed/feed.module#FeedPageModule' },
+  { path: 'minha-conta', loadChildren: './pages/minha-conta/minha-conta.module#MinhaContaPageModule' },
+  { path: 'post-info', loadChildren: './pages/post-info/post-info.module#PostInfoPageModule' },
+  { path: 'edita-post', loadChildren: './pages/edita-post/edita-post.module#EditaPostPageModule' },
+  { path: 'edita-usuario', loadChildren: './pages/edita-usuario/edita-usuario.module#EditaUsuarioPageModule' },
+  { path: 'meus-posts', loadChildren: './pages/meus-posts/meus-posts.module#MeusPostsPageModule' },
 ];
 
 @NgModule({
