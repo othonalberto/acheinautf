@@ -9,8 +9,23 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
+    path: 'tabs',
+    component: TabsPage,
+    children: [
+      {
+        path: 'feed',
+        loadChildren: './pages/feed/feed.module#FeedPageModule'
+      },
+      {
+        path: 'minha-conta',
+        loadChildren: './pages/minha-conta/minha-conta.module#MinhaContaPageModule'
+      }
+    ]
+  },
+  {
     path: '',
-    component: TabsPage
+    redirectTo: 'tabs/feed',
+    pathMatch: 'full'
   }
 ];
 

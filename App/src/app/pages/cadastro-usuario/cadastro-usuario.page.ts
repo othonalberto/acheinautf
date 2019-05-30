@@ -33,6 +33,10 @@ export class CadastroUsuarioPage implements OnInit {
   ngOnInit() {
   } 
 
+  public voltar() {
+    this.router.navigateByUrl("/home");
+  }
+
   public async validaDados(){
     
     // Se algum campo for deixado em branco mostra um aviso ao usuário e não continua.
@@ -51,7 +55,7 @@ export class CadastroUsuarioPage implements OnInit {
     
     // Manipulação com a API.
     this.urlRequest = this.url + '/usuario/criar/';
-    // Adicionar campo para dica de senha (quando houver).
+
     this.input = '{"id": "'+this.ra+'","nome": "'+this.nome+'","campus": "'+this.campus+'","contato": "'+this.contato+'","senha": "'+this.senha+'","dicasenha": "'+this.dicaSenha+'"}';
     this.input = JSON.parse(this.input);
     console.log(this.input);
@@ -69,9 +73,8 @@ export class CadastroUsuarioPage implements OnInit {
     // Registra o usuário no Firebase e limpa todos os campos.
     try {
       await this.usuario.registar(this.email, this.senha);
-      // AQUI PRECISA TROCAR O 'logado' PARA O NOME DA PÁGINA PRINCIPAL DO APLICATIVO E RETIRAR O console.log()
-      console.log("Usuario registrado com sucesso!!");
-      //this.router.navigateByUrl('/logado');
+      
+      this.router.navigateByUrl('/tabs');
 
       this.ra                = undefined;
       this.nome              = undefined;

@@ -1,3 +1,4 @@
+import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -11,7 +12,10 @@ declare var require: any
 
 export class CadastroPostPage implements OnInit {
 
-  constructor(public usuario: UsuarioService, public router: Router) {
+  constructor(public usuario: UsuarioService, 
+              public modal: ModalController,
+              public router: Router,
+              public alert: AlertController) {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
@@ -34,6 +38,12 @@ export class CadastroPostPage implements OnInit {
   ngOnInit() {
   } 
 
+  public voltar() {
+    this.modal.dismiss({
+      retorno: null
+    });
+  }
+
   public async validaDados(){
     
     if(this.titulo  == undefined ||
@@ -45,26 +55,40 @@ export class CadastroPostPage implements OnInit {
      this.usuarioCadastrado = false;
      return;
     }
-    
-    
-
-    console.log(this.ra)
 
     this.urlRequest = this.url + '/post/criar/';
     this.input = '{"titulo": "'+this.titulo+'","lugar": "'+this.lugar+'","descricao": "'+this.descricao+'","donopost" : "' + this.ra + '"}';
-    console.log(this.input)
-    this.input = JSON.parse(this.input);
-    console.log(this.input)
     
+    this.input = JSON.parse(this.input);
+    
+    let erro = false;
 
-    this.axios.post(this.urlRequest, this.input)
+    await this.axios.post(this.urlRequest, this.input)
     .then(function (resposta) {
-      console.log(resposta.data)
+      
     })
     .catch(function (error) {
-      console.log('Erro: ' + error)
+      erro = true;
     });
 
+    var alerta: any;
+    if(!erro){
+      alerta = await this.alert.create({
+        header: "Sucesso!",
+        message: "Post criado com sucesso.",
+        buttons: ["OK"]
+      });
+
+      this.modal.dismiss();
+    }else{
+      alerta = await this.alert.create({
+        header: "Erro!",
+        message: "Post não foi criado com sucesso.",
+        buttons: ["OK"]
+      });
+    }
+
+    await alerta.present();
 }
 
 }

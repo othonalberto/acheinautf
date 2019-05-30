@@ -1,9 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>edita-usuario</ion-title>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()">
+        <ion-icon name="arrow-back" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="dark">Cadastro de Usuário</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content>  
+  <br>
+  <ion-label color="danger" class="inval" *ngIf="senhaInvalida">* A senha deve ter no mínimo 6 caracteres</ion-label>
+  <ion-label color="danger" class="inval" *ngIf="camposInvalidos">* Informe todos os campos</ion-label>
+  <ion-label color="danger" class="inval" *ngIf="usuarioCadastrado">* R.A. já cadastrado</ion-label>
 
+  <ion-item>
+    <ion-label>R.A.: </ion-label>
+    <ion-input [(ngModel)]="user.id"></ion-input>
+  </ion-item><br>
+  <ion-item>
+    <ion-label>Nome: </ion-label>
+    <ion-input [(ngModel)]="user.nome"></ion-input>
+  </ion-item><br>
+  <ion-item>
+    <ion-label>Contato: </ion-label> 
+    <ion-input [(ngModel)]="user.contato"></ion-input>
+  </ion-item><br>
+  <ion-item>
+    <ion-label>Campus:</ion-label>
+    <ion-select placeholder="Selecione" [(ngModel)]="user.campus">
+      <ion-select-option *ngFor="let c of listaCampus;" [value]="c">{{c}}</ion-select-option>
+    </ion-select>
+  </ion-item><br>
+  <ion-item>
+    <ion-label>Senha:</ion-label> 
+    <ion-input type="password" [(ngModel)]="user.senha"></ion-input>
+  </ion-item><br>
+  <ion-item>
+    <ion-label>Dica de senha:</ion-label> 
+    <ion-input [(ngModel)]="user.dicasenha"></ion-input>
+  </ion-item><br>
+
+  <ion-button ion-button color="dark" 
+              expand="block"
+              fill="outline"
+              size="large"
+              (click)="validaDados()">
+  Editar dados</ion-button><br>
 </ion-content>
+      
