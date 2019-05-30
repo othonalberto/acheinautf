@@ -31,6 +31,17 @@ class Post {
         return $query;
     }
 
+    public function readByUserID($userId) {
+        $query = null;
+
+        $query = $this->conn->prepare("SELECT * from posts WHERE donopost=:id AND achado=0");
+        $query->bindParam(':id',        $userId);
+
+        $query->execute();
+
+        return $query;
+    }
+
     public function create() {
         $query = $this->conn->prepare("INSERT INTO posts(titulo, lugar, descricao, datahorapost, achado, foto, donopost) VALUES(:titulo, :lugar, :descricao, :datahorapost, :achado, :foto, :donopost)");
         
@@ -94,6 +105,7 @@ class Post {
 
         return $query;
     }
+
 
     public function found($id) {
         $p = $this->read($id);
