@@ -11,20 +11,21 @@
   
   <ion-content>
     <br>
-    <ion-item>
-        <img src="assets/img/logo.jpg">
-    </ion-item><br><br>
+    <div>
+        <img src="assets/img/semfoto.png">
+    </div><br>
     <ion-item>
       <ion-label>Título: </ion-label>
-      <ion-label>{{post.titulo}}</ion-label>
+      <p>{{post.titulo}}</p>
     </ion-item><br>
     <ion-item>
       <ion-label>Lugar: </ion-label>
-      <ion-label>{{post.lugar}}</ion-label>
+      <p>{{post.lugar}}</p>
     </ion-item><br>
-    <ion-item>
-      <ion-label>Descrição: </ion-label>
-      <ion-label>{{post.descricao}}</ion-label>
-    </ion-item>
+    
+    <ion-label id="descricao">Descrição: </ion-label>
+    <div>
+        <p id="descricao">{{post.descricao}}</p>
+    </div>
   </ion-content>
   

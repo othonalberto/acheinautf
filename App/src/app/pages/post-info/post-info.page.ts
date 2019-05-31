@@ -13,9 +13,18 @@ export class PostInfoPage implements OnInit {
 
   @Input() post_info : Object;
 
-  ngOnInit() {
-    console.log("depois", this.post_info);
+  post = {
+    titulo: '',
+    lugar: '',
+    descricao: ''
   }
+
+  ngOnInit() {
+    console.log(this.post_info);
+    //this.post = this.post_info;
+  }
+
+  
 
   voltar() {
     this.modal.dismiss({

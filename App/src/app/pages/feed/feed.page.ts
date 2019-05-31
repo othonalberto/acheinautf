@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { PostInfoPage } from '../post-info/post-info.page';
 import { ModalController, AlertController } from '@ionic/angular';
+import { EditaPostPage } from '../edita-post/edita-post.page';
 declare var require: any
 
 @Component({
@@ -21,8 +22,7 @@ export class FeedPage implements OnInit {
   urlRequest = this.url + '/usuario/';
 
   constructor(public usuario: UsuarioService,
-              public showInfoPage: ModalController,
-              public meusPosts: ModalController,
+              public modal: ModalController,
               public alert: AlertController) {
 
                 this.usuario.getUser().subscribe(user => {
@@ -31,32 +31,37 @@ export class FeedPage implements OnInit {
                   this.getPosts()
                   .then((result) => {
                     this.objetos = result;
-                    console.log("posts", this.objetos);
                   })
                   .catch((erro) => {
                     console.log("erro");
                   });
-                });
-
-                
+                });                
               }
 
   ngOnInit() {
   }
 
-  async showPostInfo(item) {
-    const showInfo = await this.showInfoPage.create({
+  async showPostInfo(post) {
+    const showInfo = await this.modal.create({
       component: PostInfoPage,
-      componentProps: {item: item}
+      componentProps: {post: post}
     });
     await showInfo.present();
   }
 
-  async contactar(item) {
+  async editarPost(post) {
+    const showInfo = await this.modal.create({
+      component: EditaPostPage,
+      componentProps: {post: post}
+    });
+    await showInfo.present();
+  }
+
+  async contactar(post) {
 
     let user_info = null;
 
-    this.urlRequest = this.url + '/usuario/' + item.donopost;
+    this.urlRequest = this.url + '/usuario/' + post.donopost;
     await this.axios.get(this.urlRequest)
     .then( function (result) {
       user_info = result.data.respostas[0];
@@ -82,14 +87,8 @@ export class FeedPage implements OnInit {
     }
   }
 
-  verMapa(item) {
+  verMapa(post) {
     console.log("Em desenvolvimento");
-  }
-
-  voltar() {
-    this.meusPosts.dismiss({
-      retorno: null
-    });
   }
 
   getPosts(): Promise<Array<Object>>{

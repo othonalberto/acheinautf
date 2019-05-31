@@ -10,38 +10,39 @@
   </ion-header>
   
   <ion-content>
-    <br>
-    <ion-item>
-      <ion-label>R.A.: </ion-label>
-      <p>{{user_info.id}}</p>
-    </ion-item><br>
-    <ion-item>
-      <ion-label>Nome: </ion-label>
-      <p>{{user_info.nome}}</p>
-    </ion-item><br>
-    <ion-item>
-      <ion-label>Contato: </ion-label>
-      <p>{{user_info.contato}}</p>
-    </ion-item><br>
-    <ion-item>
-      <ion-label>Campus:</ion-label>
-      <p>{{user_info.campus}}</p>
-    </ion-item><br>
-  
-    <ion-button ion-button color="warning" 
-                expand="block"
-                size="large"
-                style="color: black;
-                       margin-bottom: 10px;"
-                (click)="showEditaUsuario(user_info)">
-                <ion-label color="dark">Editar meus dados</ion-label>
-    </ion-button>
-    <ion-button ion-button 
-                expand="block"
-                size="large"
-                style="color: black;"
-                (click)="showMeusPosts()">
-                Visualizar meus posts
-    </ion-button>
+    <div *ngIf = "user_info != undefined">
+      <ion-item>
+        <ion-label>R.A.: </ion-label>
+        <p>{{user_info.id}}</p>
+      </ion-item><br>
+      <ion-item>
+        <ion-label>Nome: </ion-label>
+        <p>{{user_info.nome}}</p>
+      </ion-item><br>
+      <ion-item>
+        <ion-label>Contato: </ion-label>
+        <p>{{user_info.contato}}</p>
+      </ion-item><br>
+      <ion-item>
+        <ion-label>Campus:</ion-label>
+        <p>{{user_info.campus}}</p>
+      </ion-item><br>
+    
+      <ion-button ion-button color="warning" 
+                  expand="block"
+                  size="large"
+                  style="color: black;
+                        margin-bottom: 10px;"
+                  (click)="showEditaUsuario(user_info)">
+                  <ion-label color="dark">Editar meus dados</ion-label>
+      </ion-button>
+      <ion-button ion-button 
+                  expand="block"
+                  size="large"
+                  style="color: black;"
+                  (click)="showMeusPosts()">
+                  Visualizar meus posts
+      </ion-button>
+    </div>
   </ion-content>
   

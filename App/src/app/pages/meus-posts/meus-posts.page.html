@@ -5,10 +5,50 @@
           <ion-icon name="arrow-back" color="dark"></ion-icon>
         </ion-button>
       </ion-buttons>
+
       <ion-title color="dark">Meus Posts</ion-title>
     </ion-toolbar>
   </ion-header>
 
 <ion-content>
+    <ion-list *ngIf="posts != undefined">
+        <ion-card *ngFor = "let post of posts"
+                  style="border: 0.5px solid gray;">
+          <div (click) = "showPostInfo(post)">
+            <ion-card-header id="img">
+              <div id="img">
+                <img src="assets/img/semfoto.png">
+              </div>
+            </ion-card-header>
+  
+            <ion-item>
+              <ion-label><strong>{{post.titulo}}</strong></ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label color="medium">
+                <ion-icon name="pin"></ion-icon> {{post.lugar}}
+              </ion-label>
+            </ion-item>
+          </div>
+          <div>
+            <ion-item>
+              <ion-button expand="block" 
+                          fill="outline"
+                          (click) = "verMapa(post)"
+                          style="width: 100vw;">Ver Mapa</ion-button>
+              <ion-button expand="block" 
+                          fill="outline"
+                          (click) = "editarPost(post)"
+                          style="width: 100vw;">Editar Post</ion-button>
+            </ion-item>
+          </div>
+        </ion-card>
+    
+        <ion-item *ngIf="posts.length == 0" class="ion-text-center">
+          <ion-label style="margin-top: 15px; 
+                            font-size: 18px;
+                            color: gray"> --   Insira uma nova atividade   -- </ion-label>
+        </ion-item>
+      </ion-list>
 
 </ion-content>

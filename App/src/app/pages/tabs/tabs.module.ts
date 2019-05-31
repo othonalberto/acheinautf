@@ -14,11 +14,11 @@ const routes: Routes = [
     children: [
       {
         path: 'feed',
-        loadChildren: '../feed/feed.module#FeedPageModule'
+        loadChildren: './pages/feed/feed.module#FeedPageModule'
       },
       {
         path: 'minha-conta',
-        loadChildren: '../minha-conta/minha-conta.module#MinhaContaPageModule'
+        loadChildren: './pages/minha-conta/minha-conta.module#MinhaContaPageModule'
       }
     ]
   },

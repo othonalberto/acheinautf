@@ -5,7 +5,7 @@
         <ion-icon name="arrow-back" color="dark"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title color="dark">Cadastro de Usuário</ion-title>
+    <ion-title color="dark">Editar Dados de Usuário</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,10 +15,6 @@
   <ion-label color="danger" class="inval" *ngIf="camposInvalidos">* Informe todos os campos</ion-label>
   <ion-label color="danger" class="inval" *ngIf="usuarioCadastrado">* R.A. já cadastrado</ion-label>
 
-  <ion-item>
-    <ion-label>R.A.: </ion-label>
-    <ion-input [(ngModel)]="user.id"></ion-input>
-  </ion-item><br>
   <ion-item>
     <ion-label>Nome: </ion-label>
     <ion-input [(ngModel)]="user.nome"></ion-input>
@@ -34,14 +30,9 @@
     </ion-select>
   </ion-item><br>
   <ion-item>
-    <ion-label>Senha:</ion-label> 
-    <ion-input type="password" [(ngModel)]="user.senha"></ion-input>
-  </ion-item><br>
-  <ion-item>
     <ion-label>Dica de senha:</ion-label> 
     <ion-input [(ngModel)]="user.dicasenha"></ion-input>
   </ion-item><br>
-
   <ion-button ion-button color="dark" 
               expand="block"
               fill="outline"
