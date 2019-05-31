@@ -18,6 +18,7 @@ export class HomePage {
 
   constructor(public usuario: UsuarioService, public router: Router) {
     this.usuario.getUser().subscribe(user => {
+      
       (user.isOnline) ? this.router.navigateByUrl('/tabs') : this.checkingUser = false;
     });
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ModalController, AlertController } from '@ionic/angular';
+import { PostInfoPage } from '../post-info/post-info.page';
+import { EditaPostPage } from '../edita-post/edita-post.page';
 
 @Component({
   selector: 'app-meus-posts',
@@ -9,7 +11,7 @@ import { ModalController, AlertController } from '@ionic/angular';
 })
 export class MeusPostsPage implements OnInit {
 
-  public objetos = [];
+  public posts = [];
   public ra;
 
   // Variáveis para conexão com a API.
@@ -26,8 +28,7 @@ export class MeusPostsPage implements OnInit {
 
       this.getMeusPosts()
       .then((result) => {
-        this.objetos = result;
-        console.log("posts", this.objetos);
+        this.posts = result;
       })
       .catch((erro) => {
         console.log("erro");
@@ -55,6 +56,26 @@ export class MeusPostsPage implements OnInit {
         reject("ERRO");
       });
     })
+  }
+
+  async showPostInfo(post) {
+    const showInfo = await this.modal.create({
+      component: PostInfoPage,
+      componentProps: {post: post}
+    });
+    await showInfo.present();
+  }
+
+  async editarPost(post) {
+    const showInfo = await this.modal.create({
+      component: EditaPostPage,
+      componentProps: {post: post}
+    });
+    await showInfo.present();
+  }
+
+  verMapa(post) {
+    console.log("Em desenvolvimento");
   }
 
 }
