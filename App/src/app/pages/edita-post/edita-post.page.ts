@@ -59,16 +59,10 @@ export class EditaPostPage implements OnInit {
      return;
     }
 
-    console.log(this.post)
 
     this.urlRequest = this.url + '/post/atualizar/';
     
-    // this.input = '{"id": "'+this.post.id+'",{"titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.donopost + '"}';
-    
     this.input = this.post
-    // this.input = JSON.parse(this.post)
-    
-    console.log(this.input)
 
     let erro = false;
 

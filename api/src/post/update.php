@@ -19,7 +19,7 @@ if (!empty($dadosEntradas->id) && !empty($dadosEntradas->titulo) && !empty($dado
     $post->setLugar($dadosEntradas->lugar);
     $post->setDescricao($dadosEntradas->descricao);
     $post->setDataHoraPost($dadosEntradas->datahorapost);
-    $post->setAchado($dadosEntradas->achado);
+    $post->setAchado("0");
     $post->setFoto($dadosEntradas->foto);
     $post->setDonoPost($dadosEntradas->donopost);
 
