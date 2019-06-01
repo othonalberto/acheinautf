@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { AlertController } from '@ionic/angular';
 declare var require: any
 
 @Component({
@@ -10,7 +11,9 @@ declare var require: any
 })
 export class CadastroUsuarioPage implements OnInit {
 
-  constructor(private usuario: UsuarioService, public router: Router) { }
+  constructor(private usuario: UsuarioService, 
+              public router: Router, 
+              public alert: AlertController) { }
 
   // Variáveis de preenchimeto do usuário.
   ra; email; nome; contato; campus; senha; dicaSenha;
@@ -23,6 +26,7 @@ export class CadastroUsuarioPage implements OnInit {
   senhaInvalida     = false; 
   camposInvalidos   = false;
   usuarioCadastrado = false;
+  raInvalido        = false;
 
   // Variáveis para conexão com a API.
   input;
@@ -50,7 +54,16 @@ export class CadastroUsuarioPage implements OnInit {
      this.senhaInvalida     = false; 
      this.camposInvalidos   = true ;
      this.usuarioCadastrado = false;
+     this.raInvalido        = false;
      return;
+    }
+
+    if(isNaN(this.ra)){
+      this.raInvalido        = true;
+      this.senhaInvalida     = false; 
+      this.camposInvalidos   = false;
+      this.usuarioCadastrado = false;
+      return;
     }
     
     // Manipulação com a API.
@@ -59,12 +72,33 @@ export class CadastroUsuarioPage implements OnInit {
     this.input = '{"id": "'+this.ra+'","nome": "'+this.nome+'","campus": "'+this.campus+'","contato": "'+this.contato+'","senha": "'+this.senha+'","dicasenha": "'+this.dicaSenha+'"}';
     this.input = JSON.parse(this.input);
 
+    let erro = false;
     await this.axios.post(this.urlRequest, this.input)
     .then(function (resposta) {
     })
     .catch(function (error) {
       console.log('Erro: ' + error)
+      erro = true;
     });
+
+
+    let alerta;
+    if(!erro){
+      alerta = await this.alert.create({
+        header: "Bem vindo.",
+        message: "Usuário cadastrado com sucesso!",
+        buttons: ["OK"]
+      });
+      await alerta.present();
+    }else{
+      alerta = await this.alert.create({
+        header: "Erro!",
+        message: "Não foi possível cadastrar.",
+        buttons: ["OK"]
+      });
+      await alerta.present();
+      return;
+    }
 
     // Firebase só aceita email, então adiciona-se um email padrão a todos os R.A.
     this.email = this.ra + '@utfapp.com';
@@ -84,18 +118,21 @@ export class CadastroUsuarioPage implements OnInit {
       this.senhaInvalida     = false; 
       this.camposInvalidos   = false;
       this.usuarioCadastrado = false;
+      this.raInvalido        = false;
     } catch (erro) {
       // Trata possíveis erros detectados em testes.
       if (erro == 'Error: The email address is already in use by another account.'){
         this.senhaInvalida     = false; 
         this.camposInvalidos   = false;
         this.usuarioCadastrado = true ;
+        this.raInvalido        = false;
       } else if (erro == 'Error: Password should be at least 6 characters' ||
                  erro ==  'Error: createUserWithEmailAndPassword failed: Second argument "password" must be a valid string.'){
 
         this.senhaInvalida     = true ; 
         this.camposInvalidos   = false;
         this.usuarioCadastrado = false;
+        this.raInvalido        = false;
       }
       console.log(erro);
     }
