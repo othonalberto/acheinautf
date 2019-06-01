@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { PostInfoPage } from '../post-info/post-info.page';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, NavController } from '@ionic/angular';
 import { EditaPostPage } from '../edita-post/edita-post.page';
 declare var require: any
 
@@ -23,22 +23,24 @@ export class FeedPage implements OnInit {
 
   constructor(public usuario: UsuarioService,
               public modal: ModalController,
-              public alert: AlertController) {
-
-                this.usuario.getUser().subscribe(user => {
-                  this.ra = user.email.split("@")[0];
-
-                  this.getPosts()
-                  .then((result) => {
-                    this.objetos = result;
-                  })
-                  .catch((erro) => {
-                    console.log("erro");
-                  });
-                });                
+              public alert: AlertController) {              
               }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.usuario.getUser().subscribe(user => {
+      this.ra = user.email.split("@")[0];
+
+      this.getPosts()
+      .then((result) => {
+        this.objetos = result;
+      })
+      .catch((erro) => {
+        console.log("erro");
+      });
+    });  
   }
 
   async showPostInfo(post) {

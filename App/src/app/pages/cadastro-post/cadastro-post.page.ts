@@ -39,9 +39,7 @@ export class CadastroPostPage implements OnInit {
   } 
 
   public voltar() {
-    this.modal.dismiss({
-      retorno: null
-    });
+    this.router.navigateByUrl("/tabs");
   }
 
   public async validaDados(){
@@ -78,17 +76,16 @@ export class CadastroPostPage implements OnInit {
         message: "Post criado com sucesso.",
         buttons: ["OK"]
       });
-
-      this.modal.dismiss();
+      await alerta.present();
+      this.voltar();
     }else{
       alerta = await this.alert.create({
         header: "Erro!",
         message: "Post não foi criado com sucesso.",
         buttons: ["OK"]
       });
+      await alerta.present();
     }
-
-    await alerta.present();
 }
 
 }

@@ -23,4 +23,5 @@ const routes: Routes = [
   ],
   declarations: [CadastroUsuarioPage]
 })
+
 export class CadastroUsuarioPageModule {}

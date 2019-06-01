@@ -13,18 +13,18 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'feed',
-        loadChildren: './pages/feed/feed.module#FeedPageModule'
+        path: 'minha-conta',
+        loadChildren: '../minha-conta/minha-conta.module#MinhaContaPageModule'
       },
       {
-        path: 'minha-conta',
-        loadChildren: './pages/minha-conta/minha-conta.module#MinhaContaPageModule'
+        path: 'feed',
+        loadChildren: '../feed/feed.module#FeedPageModule'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'tabs/feed',
+    redirectTo: 'tabs/minha-conta',
     pathMatch: 'full'
   }
 ];

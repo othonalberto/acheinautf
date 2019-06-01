@@ -17,9 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent, EditaPostPage, EditaUsuarioPage, 
-                 PostInfoPage, CadastroPostPage, MeusPostsPage],
-  entryComponents: [EditaPostPage, EditaUsuarioPage, PostInfoPage, 
-                    CadastroPostPage, MeusPostsPage],
+                 PostInfoPage],
+  entryComponents: [EditaPostPage, EditaUsuarioPage, PostInfoPage],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule],
   providers: [
     StatusBar,

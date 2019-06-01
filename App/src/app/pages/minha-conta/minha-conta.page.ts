@@ -76,10 +76,11 @@ export class MinhaContaPage implements OnInit {
   }
 
   public async showMeusPosts() {
-    const meusPosts = await this.modal.create({
+    this.route.navigateByUrl("/meus-posts");
+    /*const meusPosts = await this.modal.create({
       component: MeusPostsPage
     });
-    await meusPosts.present();
+    await meusPosts.present();*/
   }
 
 }

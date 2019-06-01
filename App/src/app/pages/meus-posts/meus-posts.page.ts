@@ -3,6 +3,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ModalController, AlertController } from '@ionic/angular';
 import { PostInfoPage } from '../post-info/post-info.page';
 import { EditaPostPage } from '../edita-post/edita-post.page';
+import { Router } from '@angular/router';
+declare var require: any
 
 @Component({
   selector: 'app-meus-posts',
@@ -22,7 +24,11 @@ export class MeusPostsPage implements OnInit {
 
   constructor(public usuario: UsuarioService,
               public modal: ModalController,
-              public alert: AlertController) {
+              public alert: AlertController,
+              public route: Router) {
+  }
+
+  ionViewWillEnter() {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0];
 
@@ -40,9 +46,7 @@ export class MeusPostsPage implements OnInit {
   }
 
   voltar() {
-    this.modal.dismiss({
-      retorno: null
-    });
+    this.route.navigateByUrl("/tabs");
   }
 
   getMeusPosts(): Promise<Array<Object>>{
