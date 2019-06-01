@@ -66,18 +66,20 @@ export class PostInfoPage implements OnInit {
 
     this.urlRequest = this.url + '/post/deletar/';
     
-    this.input = '{"id": "'+this.post.id+'","titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.donopost + '"}';
+    // this.input = '{"id": "'+this.post.id+'","titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.donopost + '"}';
     
+    // console.log(this.input)
+    this.input = '{"id": "'+this.post.id +'"}'
     this.input = JSON.parse(this.input);
-    
 
     let erro = false;
 
-    await this.axios.delete(this.urlRequest, this.input)
+    await this.axios.delete(this.urlRequest, {data: this.input})
     .then(function (resposta) {
-      
+      console.log(resposta.data)
     })
     .catch(function (error) {
+      console.log(error)
       erro = true;
     });
 
