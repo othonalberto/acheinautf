@@ -6,6 +6,12 @@
         </ion-button>
       </ion-buttons>
       <ion-title color="dark">Informações</ion-title>
+      <ion-button (click)="removePost()" 
+                  color="danger" 
+                  slot="end"
+                  *ngIf="ra == post.donopost">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
     </ion-toolbar>
   </ion-header>
   

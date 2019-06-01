@@ -2,6 +2,7 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
+declare var require: any
 
 @Component({
   selector: 'app-edita-usuario',
@@ -10,12 +11,17 @@ import { Router } from '@angular/router';
 })
 export class EditaUsuarioPage implements OnInit {
 
-  @Input() user: Object;
+  @Input() user_info: any;
+
+  user;
 
   constructor(private usuario: UsuarioService, 
               public modal: ModalController,
               public alert: AlertController,
-              public router: Router) { }
+              public router: Router) { 
+
+    this.user = this.user_info;
+              }
 
   // Variáveis de preenchimeto do usuário.
   ra; email; nome; contato; campus; senha; dicaSenha;

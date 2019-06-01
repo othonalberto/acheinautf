@@ -2,6 +2,7 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
+declare var require: any
 
 @Component({
   selector: 'app-edita-post',
@@ -15,9 +16,12 @@ export class EditaPostPage implements OnInit {
               public router: Router,
               public alert: AlertController) {
     this.usuario.getUser().subscribe(user => {
-    this.ra = user.email.split("@")[0]
+      this.ra = user.email.split("@")[0]
     });
+    this.post = this.post_info;
   }
+
+  post;
 
   // Variáveis de preenchimeto do usuário.
   titulo; lugar; descricao; ra;
@@ -33,7 +37,7 @@ export class EditaPostPage implements OnInit {
   url = 'http://127.0.0.1:8080';
   urlRequest = this.url + '/usuario/';
 
-  @Input() post: any;
+  @Input() post_info: any;
 
   ngOnInit() {
   }
@@ -56,10 +60,11 @@ export class EditaPostPage implements OnInit {
     }
 
     this.urlRequest = this.url + '/post/atualizar/';
-    this.input = '{"titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.id + '"}';
+    
+    this.input = '{"id": "'+this.post.id+'",{"titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.donopost + '"}';
     
     this.input = JSON.parse(this.input);
-    
+
     let erro = false;
 
     await this.axios.put(this.urlRequest, this.input)
