@@ -73,7 +73,10 @@ export class MinhaContaPage implements OnInit {
       componentProps: {user_info: user}
     });
     await editar.present();
-    location.reload();
+    const{data} = await editar.onDidDismiss(); 
+
+    if(data.retorno) location.reload();
+
   }
 
   public async showMeusPosts() {

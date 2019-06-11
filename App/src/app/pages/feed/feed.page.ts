@@ -40,7 +40,7 @@ export class FeedPage implements OnInit {
       .catch((erro) => {
         console.log("erro");
       });
-    });  
+    }); 
   }
 
   async showPostInfo(post) {
@@ -50,9 +50,6 @@ export class FeedPage implements OnInit {
     });
     await showInfo.present();
   }
-  refresh() {
-    throw new Error("Method not implemented.");
-  }
 
   async editarPost(post) {
     const showInfo = await this.modal.create({
@@ -60,7 +57,10 @@ export class FeedPage implements OnInit {
       componentProps: {post_info: post}
     });
     await showInfo.present();
-    location.reload();
+    const{data} = await showInfo.onDidDismiss(); 
+
+    if(data.retorno) location.reload();
+
   }
 
   async contactar(post) {

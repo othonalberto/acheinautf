@@ -16,7 +16,20 @@ export class TabsPage implements OnInit {
   ngOnInit() {
   }
 
+  criado = false;
+
   async showCadastroPost(){
-    this.route.navigateByUrl("/cadastro-post");
-  }
+    //this.route.navigateByUrl("/cadastro-post");
+    const cadastro = await this.modal.create({
+      component: CadastroPostPage
+    });
+    await cadastro.present();
+
+    const{data} = await cadastro.onDidDismiss();
+
+    if(data.retorno) {
+      location.reload();
+    }
+
+  } 
 }
