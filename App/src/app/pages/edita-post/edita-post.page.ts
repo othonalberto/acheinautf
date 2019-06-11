@@ -18,7 +18,7 @@ export class EditaPostPage implements OnInit {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
-    this.post = this.post_info;
+    this.post = {... this.post_info};
   }
 
   post;

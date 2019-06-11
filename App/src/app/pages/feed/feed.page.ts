@@ -50,13 +50,17 @@ export class FeedPage implements OnInit {
     });
     await showInfo.present();
   }
+  refresh() {
+    throw new Error("Method not implemented.");
+  }
 
   async editarPost(post) {
     const showInfo = await this.modal.create({
       component: EditaPostPage,
-      componentProps: {post: post}
+      componentProps: {post_info: post}
     });
     await showInfo.present();
+    location.reload();
   }
 
   async contactar(post) {

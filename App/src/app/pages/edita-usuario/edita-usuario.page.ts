@@ -20,7 +20,7 @@ export class EditaUsuarioPage implements OnInit {
               public alert: AlertController,
               public router: Router) { 
 
-    this.user = this.user_info;
+    this.user = {... this.user_info};
               }
 
   // Variáveis de preenchimeto do usuário.
