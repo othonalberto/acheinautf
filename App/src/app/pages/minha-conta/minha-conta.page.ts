@@ -70,9 +70,13 @@ export class MinhaContaPage implements OnInit {
   public async showEditaUsuario (user) {
     const editar = await this.modal.create({
       component: EditaUsuarioPage,
-      componentProps: {user: user}
+      componentProps: {user_info: user}
     });
     await editar.present();
+    const{data} = await editar.onDidDismiss(); 
+
+    if(data.retorno) location.reload();
+
   }
 
   public async showMeusPosts() {

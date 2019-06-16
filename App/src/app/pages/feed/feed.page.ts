@@ -40,7 +40,7 @@ export class FeedPage implements OnInit {
       .catch((erro) => {
         console.log("erro");
       });
-    });  
+    }); 
   }
 
   async showPostInfo(post) {
@@ -54,9 +54,13 @@ export class FeedPage implements OnInit {
   async editarPost(post) {
     const showInfo = await this.modal.create({
       component: EditaPostPage,
-      componentProps: {post: post}
+      componentProps: {post_info: post}
     });
     await showInfo.present();
+    const{data} = await showInfo.onDidDismiss(); 
+
+    if(data.retorno) location.reload();
+
   }
 
   async contactar(post) {

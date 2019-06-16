@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'tabs/minha-conta',
+    redirectTo: 'tabs/feed',
     pathMatch: 'full'
   }
 ];

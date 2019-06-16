@@ -18,10 +18,10 @@ export class EditaPostPage implements OnInit {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
-    this.post = this.post_info;
   }
 
   post;
+  editado = false;
 
   // Variáveis de preenchimeto do usuário.
   titulo; lugar; descricao; ra;
@@ -40,11 +40,12 @@ export class EditaPostPage implements OnInit {
   @Input() post_info: any;
 
   ngOnInit() {
+    this.post = {... this.post_info};
   }
 
   public voltar() {
     this.modal.dismiss({
-      retorno: null
+      retorno: this.editado
     })
   }
 
@@ -82,8 +83,8 @@ export class EditaPostPage implements OnInit {
         message: "Post atualizado com sucesso.",
         buttons: ["OK"]
       });
-
-      this.modal.dismiss();
+      this.editado = true;
+      this.voltar();
     }else{
       alerta = await this.alert.create({
         header: "Erro!",

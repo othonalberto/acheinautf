@@ -24,6 +24,8 @@ export class CadastroPostPage implements OnInit {
   // Variáveis de preenchimeto do usuário.
   titulo; lugar; descricao; ra;
 
+  criado = false;
+
   // Variáveis que mostram um label na tela caso algum erro ocorra.
   senhaInvalida     = false; 
   camposInvalidos   = false;
@@ -39,7 +41,9 @@ export class CadastroPostPage implements OnInit {
   } 
 
   public voltar() {
-    this.router.navigateByUrl("/tabs");
+    this.modal.dismiss({
+      retorno: this.criado
+    })
   }
 
   public async validaDados(){
@@ -77,6 +81,7 @@ export class CadastroPostPage implements OnInit {
         buttons: ["OK"]
       });
       await alerta.present();
+      this.criado = true;
       this.voltar();
     }else{
       alerta = await this.alert.create({

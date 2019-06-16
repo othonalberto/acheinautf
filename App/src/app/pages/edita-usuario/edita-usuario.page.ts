@@ -13,15 +13,12 @@ export class EditaUsuarioPage implements OnInit {
 
   @Input() user_info: any;
 
-  user;
+  user; editado = false;
 
   constructor(private usuario: UsuarioService, 
               public modal: ModalController,
               public alert: AlertController,
-              public router: Router) { 
-
-    this.user = this.user_info;
-              }
+              public router: Router) {}
 
   // Variáveis de preenchimeto do usuário.
   ra; email; nome; contato; campus; senha; dicaSenha;
@@ -42,10 +39,13 @@ export class EditaUsuarioPage implements OnInit {
   urlRequest = this.url + '/usuario/';
 
   ngOnInit() {
+    this.user = {... this.user_info};
   } 
 
   public voltar() {
-    this.modal.dismiss();
+    this.modal.dismiss({
+      retorno: this.editado
+    })
   }
 
   public async validaDados(){
@@ -87,7 +87,8 @@ export class EditaUsuarioPage implements OnInit {
         buttons: ["OK"]
       });
 
-      this.modal.dismiss();
+      this.editado = true;
+      this.voltar();
     }else{
       alerta = await this.alert.create({
         header: "Erro!",
