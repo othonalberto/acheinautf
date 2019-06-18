@@ -2,6 +2,8 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
+import {Md5} from 'ts-md5/dist/md5';
+import * as firebase from 'firebase';
 declare var require: any
 
 @Component({
@@ -21,7 +23,7 @@ export class EditaUsuarioPage implements OnInit {
               public router: Router) {}
 
   // Variáveis de preenchimeto do usuário.
-  ra; email; nome; contato; campus; senha; dicaSenha;
+  ra; email; nome; contato; campus; senha; dicaSenha; currentUser;
   
   // Lista com todos os campus da UTFPR até o momento.
   public listaCampus = ['Apucarana', 'Campo Mourão', 'Cornélio Procópio', 'Curitiba', 'Dois Vizinhos', 'Francisco Beltrão', 
@@ -40,6 +42,7 @@ export class EditaUsuarioPage implements OnInit {
 
   ngOnInit() {
     this.user = {... this.user_info};
+    this.currentUser = firebase.auth().currentUser;
   } 
 
   public voltar() {
@@ -98,5 +101,64 @@ export class EditaUsuarioPage implements OnInit {
     }
 
     await alerta.present();
+  }
+
+  async alterarSenha(){
+    const md5 = new Md5();
+    var currentPassword;
+    console.log(this.user.senha)
+
+    var newPassword;
+    newPassword = await this.alert.create({
+      header: "Alterar senha",
+      inputs:[{
+        name: 'anterior',
+        type: 'password',
+        placeholder: 'senha anterior...'
+      },
+      {
+        name: 'nova',
+        type: 'password',
+        placeholder: 'nova senha...'
+      }],
+      buttons: [{
+        text: 'Salvar',
+        handler: async (form) => {
+          currentPassword = md5.appendStr(form.anterior).end();
+          if(currentPassword == this.user.senha){
+            console.log('iguais');
+
+            var email = this.user.id + '@utfapp.com'
+
+            const credential = firebase.auth.EmailAuthProvider.credential(
+              email, 
+              form.anterior
+            );
+
+            await this.currentUser.reauthenticateWithCredential(credential).then(function() {
+              console.log('credenciou')
+            }).catch(function(error) {
+              console.log('erro no credenciar')
+              console.log(error)
+            });
+
+            await this.currentUser.updatePassword(form.nova).then(function() {
+              console.log('deu certo');
+            }).catch(function(error) {
+              console.log('erro no update');
+              console.log(error);
+            });
+
+            this.user.senha = form.nova;
+
+          } else {
+            console.log('não iguais');
+          }
+        }
+      },{
+        text: 'Cancelar'
+      }]
+    });
+    await newPassword.present();
   }
 }

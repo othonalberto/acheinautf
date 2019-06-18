@@ -32,12 +32,21 @@
   <ion-item>
     <ion-label>Dica de senha:</ion-label> 
     <ion-input [(ngModel)]="user.dicasenha"></ion-input>
-  </ion-item><br>
-  <ion-button ion-button color="dark" 
+  </ion-item><br><br>
+  
+  <ion-button ion-button color="danger" 
+                  expand="block"
+                  size="large"
+                  style="color: black;
+                        margin-bottom: 10px;"
+                  (click)="alterarSenha()">
+                  <ion-label>Alterar senha</ion-label>
+      </ion-button>
+
+  <ion-button ion-button color="warning" 
               expand="block"
-              fill="outline"
               size="large"
               (click)="validaDados()">
-  Editar dados</ion-button><br>
+  <ion-label color='dark'>Salvar alterações</ion-label></ion-button><br>
 </ion-content>
       
