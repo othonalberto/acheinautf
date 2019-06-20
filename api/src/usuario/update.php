@@ -10,7 +10,7 @@ if (!empty($dadosEntradas->id) && !empty($dadosEntradas->nome) && !empty($dadosE
     $usuario->setNome($dadosEntradas->nome);
     $usuario->setContato($dadosEntradas->contato);
     $usuario->setCampus($dadosEntradas->campus);
-    $usuario->setSenha($dadosEntradas->senha);
+    $usuario->setSenha(md5($dadosEntradas->senha));
     $usuario->setDicaSenha($dadosEntradas->dicasenha);
 
     if ($usuario->update()) {
