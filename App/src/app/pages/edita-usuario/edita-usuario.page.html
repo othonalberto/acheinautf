@@ -11,9 +11,9 @@
 
 <ion-content>  
   <br>
-  <ion-label color="danger" class="inval" *ngIf="senhaInvalida">* A senha deve ter no mínimo 6 caracteres</ion-label>
-  <ion-label color="danger" class="inval" *ngIf="camposInvalidos">* Informe todos os campos</ion-label>
-  <ion-label color="danger" class="inval" *ngIf="usuarioCadastrado">* R.A. já cadastrado</ion-label>
+  <ion-label color="danger" class="inval" *ngIf="senhaInvalida">* A nova senha deve ter no mínimo 6 caracteres</ion-label>
+  <ion-label color="danger" class="inval" *ngIf="senhaAlterada">* Senha alterada! Clique em salvar alterações</ion-label>
+  <ion-label color="danger" class="inval" *ngIf="senhaDiferete">* Senha atual é inválida</ion-label>
 
   <ion-item>
     <ion-label>Nome: </ion-label>
