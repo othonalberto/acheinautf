@@ -77,28 +77,9 @@ export class CadastroUsuarioPage implements OnInit {
     .then(function (resposta) {
     })
     .catch(function (error) {
-      console.log('Erro: ' + error)
+      //console.log('Erro: ' + error)
       erro = true;
     });
-
-
-    let alerta;
-    if(!erro){
-      alerta = await this.alert.create({
-        header: "Bem vindo.",
-        message: "Usuário cadastrado com sucesso!",
-        buttons: ["OK"]
-      });
-      await alerta.present();
-    }else{
-      alerta = await this.alert.create({
-        header: "Erro!",
-        message: "Não foi possível cadastrar.",
-        buttons: ["OK"]
-      });
-      await alerta.present();
-      return;
-    }
 
     // Firebase só aceita email, então adiciona-se um email padrão a todos os R.A.
     this.email = this.ra + '@utfapp.com';
@@ -134,7 +115,24 @@ export class CadastroUsuarioPage implements OnInit {
         this.usuarioCadastrado = false;
         this.raInvalido        = false;
       }
-      console.log(erro);
+      //console.log(erro);
+    }
+    let alerta;
+    if(!erro){
+      alerta = await this.alert.create({
+        header: "Bem vindo.",
+        message: "Usuário cadastrado com sucesso!",
+        buttons: ["OK"]
+      });
+      await alerta.present();
+    }else{
+      alerta = await this.alert.create({
+        header: "Erro!",
+        message: "Não foi possível cadastrar.",
+        buttons: ["OK"]
+      });
+      await alerta.present();
+      return;
     }
   }
 
