@@ -2,6 +2,9 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
+
+import { environment } from '../../../environments/environment.prod';
+
 declare var require: any
 
 @Component({
@@ -34,7 +37,7 @@ export class EditaPostPage implements OnInit {
   // Variáveis para conexão com a API.
   input;
   axios = require('axios');
-  url = 'http://127.0.0.1:8080';
+  url = environment.baseapi
   urlRequest = this.url + '/usuario/';
 
   @Input() post_info: any;

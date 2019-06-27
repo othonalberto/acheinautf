@@ -6,6 +6,9 @@ import {Md5} from 'ts-md5/dist/md5';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+
+import { environment } from '../../../environments/environment.prod';
+
 declare var require: any
 
 @Component({
@@ -39,7 +42,7 @@ export class EditaUsuarioPage implements OnInit {
   // Variáveis para conexão com a API.
   input;
   axios = require('axios');
-  url = 'http://127.0.0.1:8080';
+  url = environment.baseapi
   urlRequest = this.url + '/usuario/';
 
   ngOnInit() {

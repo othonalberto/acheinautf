@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
+import { environment } from '../../../environments/environment.prod';
+// import { environment } from '../../../environments/environment';
+
 declare var require: any
 
 @Component({
@@ -22,7 +26,7 @@ export class DicaSenhaPage implements OnInit {
   // Variáveis para conexão com a API.
   input;
   axios = require('axios');
-  url = 'http://127.0.0.1:8080';
+  url = environment.baseapi
   urlRequest = this.url + '/usuario/';
 
   public voltar() {

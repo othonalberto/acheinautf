@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EditaPostPage } from '../edita-post/edita-post.page';
 
+import { environment } from '../../../environments/environment.prod';
+
 declare var require: any;
 
 @Component({
@@ -48,7 +50,7 @@ export class MinhaContaPage implements OnInit {
   // Variáveis para conexão com a API.
   input;
   axios = require('axios');
-  url = 'http://127.0.0.1:8080';
+  url = environment.baseapi
   urlRequest = this.url + '/usuario/';
 
   public getMyInfo(): Promise<{id: number, nome: string, campus: string, contato: any}> {

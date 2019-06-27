@@ -1,6 +1,9 @@
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
+
+import { environment } from '../../../environments/environment.prod';
+
 declare var require: any
 
 @Component({
@@ -25,7 +28,7 @@ export class PostInfoPage implements OnInit {
    // Variáveis para conexão com a API.
   input;
   axios = require('axios');
-  url = 'http://127.0.0.1:8080';
+  url = environment.baseapi;
   urlRequest = this.url + '/usuario/';
 
 
