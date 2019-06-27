@@ -2,6 +2,16 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { environment } from '../../../environments/environment.prod';
+// import { environment } from '../../../environments/environment';
+
+if (environment.production) {
+  enableProdMode();
+}
+
 declare var require: any
 
 @Component({
@@ -34,7 +44,7 @@ export class CadastroPostPage implements OnInit {
   // Variáveis para conexão com a API.
   input;
   axios = require('axios');
-  url = 'http://127.0.0.1:8080';
+  url = environment.baseapi
   urlRequest = this.url + '/usuario/';
 
   ngOnInit() {
@@ -48,9 +58,9 @@ export class CadastroPostPage implements OnInit {
 
   public async validaDados(){
     
-    if(this.titulo  == undefined ||
-      this.descricao     == undefined ||
-      this.lugar    == undefined) {
+    if(this.titulo   == undefined ||
+      this.descricao == undefined ||
+      this.lugar     == undefined) {
 
      this.senhaInvalida     = false; 
      this.camposInvalidos   = true ;
