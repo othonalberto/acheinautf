@@ -15,6 +15,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx'
+import { HTTP } from '@ionic-native/http/ngx';
+
 @NgModule({
   declarations: [AppComponent, EditaPostPage, EditaUsuarioPage, 
                  PostInfoPage, CadastroPostPage],
@@ -23,6 +27,10 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     StatusBar,
     SplashScreen,
+    Contacts,
+    Contact,
+    HTTP,
+    EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
