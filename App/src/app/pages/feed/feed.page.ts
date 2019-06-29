@@ -4,7 +4,6 @@ import { PostInfoPage } from '../post-info/post-info.page';
 import { ModalController, AlertController, NavController } from '@ionic/angular';
 import { EditaPostPage } from '../edita-post/edita-post.page';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
-import { HTTP } from '@ionic-native/http/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx'
 import { environment } from '../../../environments/environment.prod';
 
@@ -31,8 +30,7 @@ export class FeedPage implements OnInit {
               public modal: ModalController,
               public alert: AlertController,
               public contacts: Contacts,
-              public email: EmailComposer,
-              public http: HTTP) {}
+              public email: EmailComposer) {}
 
   ngOnInit() {
   }

@@ -16,8 +16,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx'
-import { HTTP } from '@ionic-native/http/ngx';
 
 @NgModule({
   declarations: [AppComponent, EditaPostPage, EditaUsuarioPage, 
@@ -29,7 +29,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     SplashScreen,
     Contacts,
     Contact,
-    HTTP,
+    Camera,
     EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

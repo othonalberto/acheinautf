@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+import { Camera } from '@ionic-native/camera/ngx';
 import { environment } from '../../../environments/environment.prod';
-// import { environment } from '../../../environments/environment';
 
 if (environment.production) {
   enableProdMode();
@@ -25,7 +24,8 @@ export class CadastroPostPage implements OnInit {
   constructor(public usuario: UsuarioService, 
               public modal: ModalController,
               public router: Router,
-              public alert: AlertController) {
+              public alert: AlertController,
+              public camera: Camera) {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
@@ -35,6 +35,7 @@ export class CadastroPostPage implements OnInit {
   titulo; lugar; descricao; ra;
 
   criado = false;
+  public foto = ''
 
   // Variáveis que mostram um label na tela caso algum erro ocorra.
   senhaInvalida     = false; 
@@ -69,7 +70,7 @@ export class CadastroPostPage implements OnInit {
     }
 
     this.urlRequest = this.url + '/post/criar/';
-    this.input = '{"titulo": "'+this.titulo+'","lugar": "'+this.lugar+'","descricao": "'+this.descricao+'","donopost" : "' + this.ra + '"}';
+    this.input = '{"titulo": "'+this.titulo+'","lugar": "'+this.lugar+'","descricao": "'+this.descricao+'","donopost" : "' + this.ra + '","foto": "'+this.foto+'"}';
     
     this.input = JSON.parse(this.input);
     
@@ -101,6 +102,20 @@ export class CadastroPostPage implements OnInit {
       });
       await alerta.present();
     }
-}
+  }
+
+  async tirarFoto(){
+    let opcoes = {
+      quality: 95,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    let captura = await this.camera.getPicture(opcoes);
+    this.foto = 'data:image/jpeg;base64,' + captura;
+
+    console.log(this.foto)
+  }
 
 }
