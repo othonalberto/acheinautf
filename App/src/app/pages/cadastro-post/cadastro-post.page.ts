@@ -25,7 +25,7 @@ export class CadastroPostPage implements OnInit {
               public modal: ModalController,
               public router: Router,
               public alert: AlertController,
-              public camera: Camera) {
+              public camera: Camera ){
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
@@ -116,6 +116,20 @@ export class CadastroPostPage implements OnInit {
     this.foto = 'data:image/jpeg;base64,' + captura;
 
     console.log(this.foto)
+  }
+
+  async getFoto(){
+    let opcoes = {
+      maximumImagesCount: 1,
+      quality: 95,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum:false
+    }
+    this.camera.getPicture(opcoes).then((results) => {
+          this.foto = 'data:image/jpeg;base64,' + results;
+          console.log(this.foto);
+    }, (err) => { });
   }
 
 }
