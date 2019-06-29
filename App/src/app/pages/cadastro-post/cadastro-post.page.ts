@@ -5,9 +5,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Camera } from '@ionic-native/camera/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { environment } from '../../../environments/environment.prod';
 import { HTTP } from '@ionic-native/http/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx'
 
 if (environment.production) {
   enableProdMode();
@@ -39,7 +39,7 @@ export class CadastroPostPage implements OnInit {
   titulo; lugar; descricao; ra;
 
   criado = false;
-  public foto = ''
+  public foto = '';
 
   // Variáveis que mostram um label na tela caso algum erro ocorra.
   senhaInvalida     = false; 
@@ -127,8 +127,6 @@ export class CadastroPostPage implements OnInit {
 
     let captura = await this.camera.getPicture(opcoes);
     this.foto = 'data:image/jpeg;base64,' + captura;
-
-    console.log(this.foto)
   }
 
   async getFoto(){
@@ -136,12 +134,12 @@ export class CadastroPostPage implements OnInit {
       maximumImagesCount: 1,
       width: 500,
       height: 500,
+      outputType: 1,
       quality: 95
     }
     this.imagePicker.getPictures(opcoes).then((results) => {
       for (var i = 0; i < results.length; i++) {
           this.foto = 'data:image/jpeg;base64,' + results[i];
-          console.log(this.foto);
       }
     }, (err) => { });
   }
