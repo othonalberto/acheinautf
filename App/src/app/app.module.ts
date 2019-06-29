@@ -19,6 +19,9 @@ import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/cont
 import { Camera } from '@ionic-native/camera/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx'
 
+import { HTTP } from '@ionic-native/http/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx'
+
 @NgModule({
   declarations: [AppComponent, EditaPostPage, EditaUsuarioPage, 
                  PostInfoPage, CadastroPostPage],
@@ -30,7 +33,9 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx'
     Contacts,
     Contact,
     Camera,
+    HTTP,
     EmailComposer,
+    ImagePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

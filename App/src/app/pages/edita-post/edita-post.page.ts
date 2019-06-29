@@ -2,7 +2,7 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
+import { HTTP } from '@ionic-native/http/ngx';
 import { environment } from '../../../environments/environment.prod';
 
 declare var require: any
@@ -17,7 +17,8 @@ export class EditaPostPage implements OnInit {
   constructor(public usuario: UsuarioService, 
               public modal: ModalController,
               public router: Router,
-              public alert: AlertController) {
+              public alert: AlertController,
+              public http: HTTP) {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
@@ -70,14 +71,23 @@ export class EditaPostPage implements OnInit {
 
     let erro = false;
 
-    await this.axios.put(this.urlRequest, this.input)
-    .then(function (resposta) {
-      console.log(resposta.data)
+    this.http.setDataSerializer('json')
+    await this.http.put(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    .then((result) => {
     })
-    .catch(function (error) {
-      erro = true;
+    .catch((error) => {
       console.log(error)
-    });
+      erro = true;
+    })
+
+    // await this.axios.put(this.urlRequest, this.input)
+    // .then(function (resposta) {
+    //   console.log(resposta.data)
+    // })
+    // .catch(function (error) {
+    //   erro = true;
+    //   console.log(error)
+    // });
 
     var alerta: any;
     if(!erro){

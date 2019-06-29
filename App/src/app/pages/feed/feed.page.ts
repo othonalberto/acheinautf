@@ -6,6 +6,7 @@ import { EditaPostPage } from '../edita-post/edita-post.page';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx'
 import { environment } from '../../../environments/environment.prod';
+import { HTTP } from '@ionic-native/http/ngx';
 
 declare var require: any
 
@@ -30,7 +31,8 @@ export class FeedPage implements OnInit {
               public modal: ModalController,
               public alert: AlertController,
               public contacts: Contacts,
-              public email: EmailComposer) {}
+              public email: EmailComposer,
+              public http: HTTP) {}
 
   ngOnInit() {
   }
@@ -153,22 +155,20 @@ export class FeedPage implements OnInit {
   }
 
   getPosts(): Promise<Array<Object>>{
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       
       this.urlRequest = this.url + '/post';
   
-      // await this.http.get(this.urlRequest, {}, {})
+      // this.http.get(this.urlRequest, {}, {})
       // .then((resposta) => {
-      //   resolve(resposta.data.respostas);
-      //   console.log(resposta.data)
-      //   console.log(resposta.data.respostas)
+      //   resolve(resposta.data);
       // })
       // .catch((error) => {
       //   reject("ERRO");
       //   console.log(error)
       // })
 
-      this.axios.get(this.urlRequest)
+      await this.axios.get(this.urlRequest)
       .then( function (resposta) {
         resolve(resposta.data.respostas);
         })

@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
 import {Md5} from 'ts-md5/dist/md5';
+import { HTTP } from '@ionic-native/http/ngx';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -25,7 +26,8 @@ export class EditaUsuarioPage implements OnInit {
   constructor(private usuario: UsuarioService, 
               public modal: ModalController,
               public alert: AlertController,
-              public router: Router) {}
+              public router: Router,
+              public http: HTTP) {}
 
   // Variáveis de preenchimeto do usuário.
   ra; email; nome; contato; campus; senha; dicaSenha; currentUser;
@@ -81,12 +83,21 @@ export class EditaUsuarioPage implements OnInit {
 
     var erro = false;
 
-    await this.axios.put(this.urlRequest, this.input)
-    .then(function (resposta) {
+
+    this.http.setDataSerializer('json')
+    await this.http.put(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    .then((result) => {
     })
-    .catch(function (error) {
+    .catch((error) => {
       erro = true;
-    });
+    })
+
+    // await this.axios.put(this.urlRequest, this.input)
+    // .then(function (resposta) {
+    // })
+    // .catch(function (error) {
+    //   erro = true;
+    // });
 
     var alerta: any;
     if(!erro){

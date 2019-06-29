@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EditaPostPage } from '../edita-post/edita-post.page';
+import { HTTP } from '@ionic-native/http/ngx';
 
 import { environment } from '../../../environments/environment.prod';
 
@@ -23,17 +24,18 @@ export class MinhaContaPage implements OnInit {
 
   constructor(public usuario: UsuarioService,
               public modal: ModalController,
-              public route: Router) { 
+              public route: Router,
+              public http: HTTP) { 
 
-    this.usuario.getUser().subscribe(user => {
+    this.usuario.getUser().subscribe(async user => {
       this.ra = user.email.split("@")[0];
 
-      this.getMyInfo()
+      await this.getMyInfo()
       .then((result) => {
         this.user_info = result;
       })
       .catch((erro) => {
-        console.log("erro");
+        console.log("erro aqui");
       });
     });
 
@@ -54,11 +56,21 @@ export class MinhaContaPage implements OnInit {
   urlRequest = this.url + '/usuario/';
 
   public getMyInfo(): Promise<{id: number, nome: string, campus: string, contato: any}> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
 
       this.urlRequest = this.url + '/usuario/' + this.ra;
 
-       this.axios.get(this.urlRequest)
+      // await this.http.get(this.urlRequest, {}, { 'Content-Type': 'application/json' })
+      // .then((resposta) => {
+      //   // resolve(resposta.data.respostas[0]);
+      //   console.log(resposta.data)
+      // })
+      // .catch((error) => {
+      //   reject("ERRO");
+      //   console.log(error)
+      // })
+
+      await this.axios.get(this.urlRequest)
       .then( function (resposta) {
         resolve(resposta.data.respostas[0]);
       })
