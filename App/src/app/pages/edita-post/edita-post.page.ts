@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { HTTP } from '@ionic-native/http/ngx';
 import { environment } from '../../../environments/environment.prod';
+import { Camera } from '@ionic-native/camera/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 declare var require: any
 
@@ -18,7 +20,9 @@ export class EditaPostPage implements OnInit {
               public modal: ModalController,
               public router: Router,
               public alert: AlertController,
-              public http: HTTP) {
+              public http: HTTP,
+              public camera: Camera,
+              public imagePicker: ImagePicker) {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
@@ -26,6 +30,7 @@ export class EditaPostPage implements OnInit {
 
   post;
   editado = false;
+  public foto = '';
 
   // Variáveis de preenchimeto do usuário.
   titulo; lugar; descricao; ra;
@@ -66,8 +71,9 @@ export class EditaPostPage implements OnInit {
 
 
     this.urlRequest = this.url + '/post/atualizar/';
+    this.input = '{"titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.ra + '","foto": "'+this.post.foto+'"}';
     
-    this.input = this.post
+    this.input = JSON.parse(this.input);
 
     let erro = false;
 
@@ -107,6 +113,33 @@ export class EditaPostPage implements OnInit {
     }
 
     await alerta.present();
+  }
+
+  async tirarFoto(){
+    let opcoes = {
+      quality: 95,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    let captura = await this.camera.getPicture(opcoes);
+    this.post.foto = 'data:image/jpeg;base64,' + captura;
+  }
+
+  async getFoto(){
+    let opcoes = {
+      maximumImagesCount: 1,
+      width: 500,
+      height: 500,
+      outputType: 1,
+      quality: 95
+    }
+    this.imagePicker.getPictures(opcoes).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+          this.post.foto = 'data:image/jpeg;base64,' + results[i];
+      }
+    }, (err) => { });
   }
 
 }

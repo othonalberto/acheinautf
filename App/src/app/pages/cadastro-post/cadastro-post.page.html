@@ -30,6 +30,11 @@
     <ion-input [(ngModel)]="descricao"></ion-input>
   </ion-item><br>
 
+  <ion-item>
+    <ion-label>Foto:</ion-label> 
+    <img [src]="foto">
+  </ion-item><br>
+
   <ion-grid>
     <ion-row>
       <ion-col col-6>
@@ -41,7 +46,7 @@
         </ion-button><br>
       </ion-col>
       <ion-col col-6>
-        <ion-button id="botaoPicker" ion-button color="light" 
+        <ion-button id="botaoCamera" ion-button color="light" 
         size="large"
         (click)="getFoto()">
         <ion-label color="dark">Galeria</ion-label>
