@@ -6,6 +6,8 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Camera } from '@ionic-native/camera/ngx';
 import { environment } from '../../../environments/environment.prod';
+import { HTTP } from '@ionic-native/http/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx'
 
 if (environment.production) {
   enableProdMode();
@@ -25,7 +27,9 @@ export class CadastroPostPage implements OnInit {
               public modal: ModalController,
               public router: Router,
               public alert: AlertController,
-              public camera: Camera ){
+              public camera: Camera,
+              public http: HTTP,
+              public imagePicker: ImagePicker) {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0]
     });
@@ -76,13 +80,22 @@ export class CadastroPostPage implements OnInit {
     
     let erro = false;
 
-    await this.axios.post(this.urlRequest, this.input)
-    .then(function (resposta) {
-      
+    this.http.setDataSerializer('json')
+    await this.http.post(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    .then((result) => {
     })
-    .catch(function (error) {
+    .catch((error) => {
+      console.log(error)
       erro = true;
-    });
+    })
+
+    // await this.axios.post(this.urlRequest, this.input)
+    // .then(function (resposta) {
+      
+    // })
+    // .catch(function (error) {
+    //   erro = true;
+    // });
 
     var alerta: any;
     if(!erro){
@@ -121,14 +134,15 @@ export class CadastroPostPage implements OnInit {
   async getFoto(){
     let opcoes = {
       maximumImagesCount: 1,
-      quality: 95,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      saveToPhotoAlbum:false
+      width: 500,
+      height: 500,
+      quality: 95
     }
-    this.camera.getPicture(opcoes).then((results) => {
-          this.foto = 'data:image/jpeg;base64,' + results;
+    this.imagePicker.getPictures(opcoes).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+          this.foto = 'data:image/jpeg;base64,' + results[i];
           console.log(this.foto);
+      }
     }, (err) => { });
   }
 

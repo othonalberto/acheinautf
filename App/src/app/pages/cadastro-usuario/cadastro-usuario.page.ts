@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AlertController } from '@ionic/angular';
+import { HTTP } from '@ionic-native/http/ngx';
 
 import { environment } from '../../../environments/environment.prod';
 // import { environment } from '../../../environments/environment';
@@ -17,7 +18,8 @@ export class CadastroUsuarioPage implements OnInit {
 
   constructor(private usuario: UsuarioService, 
               public router: Router, 
-              public alert: AlertController) { }
+              public alert: AlertController,
+              public http: HTTP) { }
 
   // Variáveis de preenchimeto do usuário.
   ra; email; nome; contato; campus; senha; dicaSenha;
@@ -77,50 +79,63 @@ export class CadastroUsuarioPage implements OnInit {
     this.input = JSON.parse(this.input);
 
     let erro = false;
-    await this.axios.post(this.urlRequest, this.input)
-    .then(function (resposta) {
+
+    this.http.setDataSerializer('json')
+    await this.http.post(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    .then((result) => {
     })
-    .catch(function (error) {
-      //console.log('Erro: ' + error)
+    .catch((error) => {
+      console.log(error)
       erro = true;
-    });
+    })
+
+    // await this.axios.post(this.urlRequest, this.input)
+    // .then(function (resposta) {
+    // })
+    // .catch(function (error) {
+    //   //console.log('Erro: ' + error)
+    //   erro = true;
+    // });
 
     // Firebase só aceita email, então adiciona-se um email padrão a todos os R.A.
     this.email = this.ra + '@utfapp.com';
 
     // Registra o usuário no Firebase e limpa todos os campos.
-    try {
-      await this.usuario.registar(this.email, this.senha);
-      
-      this.router.navigateByUrl('/tabs');
+    if(!erro){
+      try {
+        await this.usuario.registar(this.email, this.senha);
+        
+        this.router.navigateByUrl('/tabs');
 
-      this.ra                = undefined;
-      this.nome              = undefined;
-      this.contato           = undefined;
-      this.campus            = undefined;
-      this.senha             = undefined;
-      this.dicaSenha         = undefined;
-      this.senhaInvalida     = false; 
-      this.camposInvalidos   = false;
-      this.usuarioCadastrado = false;
-      this.raInvalido        = false;
-    } catch (erro) {
-      // Trata possíveis erros detectados em testes.
-      if (erro == 'Error: The email address is already in use by another account.'){
+        this.ra                = undefined;
+        this.nome              = undefined;
+        this.contato           = undefined;
+        this.campus            = undefined;
+        this.senha             = undefined;
+        this.dicaSenha         = undefined;
         this.senhaInvalida     = false; 
-        this.camposInvalidos   = false;
-        this.usuarioCadastrado = true ;
-        this.raInvalido        = false;
-      } else if (erro == 'Error: Password should be at least 6 characters' ||
-                 erro ==  'Error: createUserWithEmailAndPassword failed: Second argument "password" must be a valid string.'){
-
-        this.senhaInvalida     = true ; 
         this.camposInvalidos   = false;
         this.usuarioCadastrado = false;
         this.raInvalido        = false;
+      } catch (erro) {
+        // Trata possíveis erros detectados em testes.
+        if (erro == 'Error: The email address is already in use by another account.'){
+          this.senhaInvalida     = false; 
+          this.camposInvalidos   = false;
+          this.usuarioCadastrado = true ;
+          this.raInvalido        = false;
+        } else if (erro == 'Error: Password should be at least 6 characters' ||
+                  erro ==  'Error: createUserWithEmailAndPassword failed: Second argument "password" must be a valid string.'){
+
+          this.senhaInvalida     = true ; 
+          this.camposInvalidos   = false;
+          this.usuarioCadastrado = false;
+          this.raInvalido        = false;
+        }
+        //console.log(erro);
       }
-      //console.log(erro);
     }
+    
     let alerta;
     if(!erro){
       alerta = await this.alert.create({

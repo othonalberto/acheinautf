@@ -1,7 +1,7 @@
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
-
+import { HTTP } from '@ionic-native/http/ngx';
 import { environment } from '../../../environments/environment.prod';
 
 declare var require: any
@@ -18,7 +18,8 @@ export class PostInfoPage implements OnInit {
 
   constructor(public modal: ModalController,
               public usuario: UsuarioService,
-              public alert: AlertController) {
+              public alert: AlertController,
+              public http: HTTP) {
     this.usuario.getUser().subscribe(user => {
       this.ra = user.email.split("@")[0];
     });
@@ -77,14 +78,22 @@ export class PostInfoPage implements OnInit {
 
     let erro = false;
 
-    await this.axios.delete(this.urlRequest, {data: this.input})
-    .then(function (resposta) {
-      console.log(resposta.data)
+    // await this.axios.delete(this.urlRequest, {data: this.input})
+    // .then(function (resposta) {
+    //   console.log(resposta.data)
+    // })
+    // .catch(function (error) {
+    //   console.log(error)
+    //   erro = true;
+    // });
+
+    this.http.setDataSerializer('json')
+    await this.http.delete(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    .then((result) => {
     })
-    .catch(function (error) {
-      console.log(error)
+    .catch((error) => {
       erro = true;
-    });
+    })
 
     var alerta: any;
     if(!erro){
