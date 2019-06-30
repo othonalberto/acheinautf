@@ -117,4 +117,60 @@ export class PostInfoPage implements OnInit {
       await alerta.present();
     }
   }
+
+  async achado() {
+    const msg = await this.alert.create({
+      animated: true,
+      header: "O objeto foi realmente devolvido?",
+      buttons: [{
+        text: 'Não',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          return;
+        }
+      }, {
+        text: 'Sim',
+        handler: () => {
+          this.setAchado();
+        }
+      }]
+    });
+    await msg.present();
+  }
+
+  async setAchado(){
+    this.urlRequest = this.url + '/post/atualizar/';
+    this.input = '{"titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.ra + '","foto": "'+this.post.foto+'","achado": "1"}';
+    
+    this.input = JSON.parse(this.input);
+
+    let erro = false;
+
+    this.http.setDataSerializer('json')
+    this.http.put(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    .then((result) => {
+    })
+    .catch((error) => {
+      erro = true;
+    })
+
+    var alerta: any;
+    if(!erro){
+      alerta = await this.alert.create({
+        header: "Sucesso!",
+        message: "Post finalizado com sucesso.",
+        buttons: ["OK"]
+      });
+      alerta.present();
+      this.voltar();
+    }else{
+      alerta = await this.alert.create({
+        header: "Erro!",
+        message: "Não foi possível finalizar o post.",
+        buttons: ["OK"]
+      });
+      await alerta.present();
+    }
+  }
 }
