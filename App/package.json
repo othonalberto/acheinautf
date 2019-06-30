@@ -94,7 +94,9 @@
       },
       "cordova-plugin-camera": {},
       "cordova-plugin-advanced-http": {},
-      "cordova-plugin-telerik-imagepicker": {}
+      "cordova-plugin-telerik-imagepicker": {
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
+      }
     },
     "platforms": [
       "android",

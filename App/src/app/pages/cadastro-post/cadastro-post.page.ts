@@ -70,10 +70,12 @@ export class CadastroPostPage implements OnInit {
      this.senhaInvalida     = false; 
      this.camposInvalidos   = true ;
      this.usuarioCadastrado = false;
+
      return;
     }
 
     this.urlRequest = this.url + '/post/criar/';
+
     this.input = '{"titulo": "'+this.titulo+'","lugar": "'+this.lugar+'","descricao": "'+this.descricao+'","donopost" : "' + this.ra + '","foto": "'+this.foto+'"}';
     
     this.input = JSON.parse(this.input);
@@ -85,7 +87,6 @@ export class CadastroPostPage implements OnInit {
     .then((result) => {
     })
     .catch((error) => {
-      console.log(error)
       erro = true;
     })
 
@@ -115,7 +116,7 @@ export class CadastroPostPage implements OnInit {
       });
       await alerta.present();
     }
-  }
+  } 
 
   async tirarFoto(){
     let opcoes = {

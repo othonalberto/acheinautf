@@ -11,7 +11,8 @@
 
 <ion-content>
   <br>
-  <img id="logo" src="assets/img/logo.jpg"><br>
+  <img *ngIf="foto == ''" src="assets/img/logo.jpg"><br>
+  <img *ngIf="foto != ''" [src]="foto"><br>
 
   <ion-label color="danger" class="inval" *ngIf="camposInvalidos">* Informe todos os campos</ion-label>
 
@@ -28,11 +29,6 @@
   <ion-item>
     <ion-label>Descrição: </ion-label> 
     <ion-input [(ngModel)]="descricao"></ion-input>
-  </ion-item><br>
-
-  <ion-item>
-    <ion-label>Foto:</ion-label> 
-    <img [src]="foto">
   </ion-item><br>
 
   <ion-grid>
