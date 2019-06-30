@@ -66,14 +66,21 @@ export class EditaPostPage implements OnInit {
      this.senhaInvalida     = false; 
      this.camposInvalidos   = true ;
      this.usuarioCadastrado = false;
+
      return;
     }
 
-
     this.urlRequest = this.url + '/post/atualizar/';
-    this.input = '{"titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.ra + '","foto": "'+this.post.foto+'"}';
-    
-    this.input = JSON.parse(this.input);
+
+    if(this.foto != ''){
+      this.post.foto = this.foto;
+    }
+
+    console.log(this.post)
+
+    this.input = this.post
+
+    //this.input = JSON.parse(this.input);
 
     let erro = false;
 
@@ -82,7 +89,6 @@ export class EditaPostPage implements OnInit {
     .then((result) => {
     })
     .catch((error) => {
-      console.log(error)
       erro = true;
     })
 
@@ -124,7 +130,9 @@ export class EditaPostPage implements OnInit {
     };
 
     let captura = await this.camera.getPicture(opcoes);
-    this.post.foto = 'data:image/jpeg;base64,' + captura;
+    this.foto = 'data:image/jpeg;base64,' + captura;
+
+    this.post.foto = this.foto;
   }
 
   async getFoto(){
@@ -137,9 +145,11 @@ export class EditaPostPage implements OnInit {
     }
     this.imagePicker.getPictures(opcoes).then((results) => {
       for (var i = 0; i < results.length; i++) {
-          this.post.foto = 'data:image/jpeg;base64,' + results[i];
+          this.foto = 'data:image/jpeg;base64,' + results[i];
       }
     }, (err) => { });
+
+    this.post.foto = this.foto;
   }
 
 }

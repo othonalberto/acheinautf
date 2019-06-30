@@ -68,13 +68,17 @@ export class PostInfoPage implements OnInit {
 
   async remove() {
 
-    this.urlRequest = this.url + '/post/deletar/';
+    this.urlRequest = this.url + '/post/deletar/'+this.post.id;
     
     // this.input = '{"id": "'+this.post.id+'","titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.donopost + '"}';
     
     // console.log(this.input)
-    this.input = '{"id": "'+this.post.id +'"}'
-    this.input = JSON.parse(this.input);
+    //this.input = '{"id": "'+this.post.id +'"}'
+
+    // console.log(this.input)
+    // console.log(this.post.id)
+
+    // this.input = JSON.parse(this.input);
 
     let erro = false;
 
@@ -87,8 +91,8 @@ export class PostInfoPage implements OnInit {
     //   erro = true;
     // });
 
-    this.http.setDataSerializer('json')
-    await this.http.delete(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    //this.http.setDataSerializer('json')
+    await this.http.delete(this.urlRequest, { }, { })
     .then((result) => {
     })
     .catch((error) => {
