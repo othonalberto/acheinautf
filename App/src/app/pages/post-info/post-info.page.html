@@ -20,10 +20,10 @@
     <div>
       <img [src]="post.foto">
     </div><br>
-    <ion-button expand="block"
+    <ion-button class="button" expand="block"
                         fill="outline"
                         (click) = "achado()"
-                        *ngIf = "post.donopost != ra">Objeto foi devolvido ao dono?</ion-button>
+                        *ngIf = "ra == post.donopost">Objeto foi devolvido ao dono?</ion-button>
     
     <ion-item>
       <ion-label>Título: </ion-label>

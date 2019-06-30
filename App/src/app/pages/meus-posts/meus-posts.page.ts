@@ -71,6 +71,9 @@ export class MeusPostsPage implements OnInit {
       componentProps: {post: post}
     });
     await showInfo.present();
+    const{data} = await showInfo.onDidDismiss(); 
+
+    if(data.retorno) location.reload();
   }
 
   async editarPost(post) {
@@ -79,6 +82,9 @@ export class MeusPostsPage implements OnInit {
       componentProps: {post: post}
     });
     await showInfo.present();
+    const{data} = await showInfo.onDidDismiss(); 
+
+    if(data.retorno) location.reload();
   }
 
   verMapa(post) {
