@@ -15,6 +15,7 @@ export class PostInfoPage implements OnInit {
 
   ra;
   post;
+  editado = false;
 
   constructor(public modal: ModalController,
               public usuario: UsuarioService,
@@ -40,7 +41,7 @@ export class PostInfoPage implements OnInit {
 
   voltar() {
     this.modal.dismiss({
-      retorno: null
+      retorno: this.achado
     });  
   }
 
@@ -107,6 +108,7 @@ export class PostInfoPage implements OnInit {
         buttons: ["OK"]
       });
       await alerta.present();
+      this.editado = true;
       this.voltar();
     }else{
       alerta = await this.alert.create({
@@ -141,14 +143,15 @@ export class PostInfoPage implements OnInit {
 
   async setAchado(){
     this.urlRequest = this.url + '/post/atualizar/';
-    this.input = '{"titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.ra + '","foto": "'+this.post.foto+'","achado": "1"}';
-    
-    this.input = JSON.parse(this.input);
+    this.post.achado = 1;
+    //this.input = '{"id": "'+this.post.id+'","titulo": "'+this.post.titulo+'","lugar": "'+this.post.lugar+'","descricao": "'+this.post.descricao+'","donopost" : "' + this.post.ra + '","foto": "'+this.post.foto+'","achado": "1"}';
+    this.input = this.post;
+    //this.input = JSON.parse(this.input);
 
     let erro = false;
 
     this.http.setDataSerializer('json')
-    this.http.put(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
+    await this.http.put(this.urlRequest, this.input, { 'Content-Type': 'application/json' })
     .then((result) => {
     })
     .catch((error) => {
@@ -162,7 +165,8 @@ export class PostInfoPage implements OnInit {
         message: "Post finalizado com sucesso.",
         buttons: ["OK"]
       });
-      alerta.present();
+      await alerta.present();
+      this.editado = true;
       this.voltar();
     }else{
       alerta = await this.alert.create({

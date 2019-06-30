@@ -57,6 +57,9 @@ export class FeedPage implements OnInit {
       componentProps: {post: post}
     });
     await showInfo.present();
+    const{data} = await showInfo.onDidDismiss(); 
+
+    if(data.retorno) location.reload();
   }
 
   async editarPost(post) {
