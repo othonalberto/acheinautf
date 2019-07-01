@@ -76,8 +76,6 @@ export class EditaPostPage implements OnInit {
       this.post.foto = this.foto;
     }
 
-    console.log(this.post)
-
     this.input = this.post
 
     //this.input = JSON.parse(this.input);

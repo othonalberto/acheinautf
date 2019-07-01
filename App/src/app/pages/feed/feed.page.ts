@@ -132,8 +132,8 @@ export class FeedPage implements OnInit {
             handler: async (form) => {
               const conteudo = {
                 to: user_info.contato,
-                subject: 'Item encontrado',
-                body: 'Olá, este item é meu!'
+                subject: 'AcheiNaUTF: O item '+post.titulo+' é meu!',
+                body: 'Olá '+user_info.nome+'. O item '+post.titulo+' que você encontrou é meu! Como combinamos a devolução?'
               };
               this.email.open(conteudo)
             }
