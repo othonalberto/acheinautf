@@ -2,7 +2,6 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
-import {Md5} from 'ts-md5/dist/md5';
 import { HTTP } from '@ionic-native/http/ngx';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -121,8 +120,7 @@ export class EditaUsuarioPage implements OnInit {
   }
 
   async alterarSenha(){
-    const md5 = new Md5();
-    var currentPassword;
+    // const md5 = new Md5();
     var newPassword;
     newPassword = await this.alert.create({
       header: "Alterar senha",
@@ -135,22 +133,32 @@ export class EditaUsuarioPage implements OnInit {
         name: 'nova',
         type: 'password',
         placeholder: 'Nova senha...'
+      },
+      {
+        name: 'confirma',
+        type: 'password',
+        placeholder: 'Confirmar senha...'
       }],
       buttons: [{
         text: 'Salvar',
         handler: async (form) => {
-          currentPassword = md5.appendStr(form.anterior).end();
-          if(currentPassword == this.user.senha){
+
+          email = this.user.id + '@utfapp.com';
+
+          const credential = firebase.auth.EmailAuthProvider.credential(
+            email, 
+            form.anterior
+          );
+
+          var erro = false;
+
+          await this.currentUser.reauthenticateWithCredential(credential).then(function() {
+          }).catch(function(error) {
+            erro = true;
+          });
+
+          if(!erro){
             var email = this.user.id + '@utfapp.com'
-
-            const credential = firebase.auth.EmailAuthProvider.credential(
-              email, 
-              form.anterior
-            );
-
-            await this.currentUser.reauthenticateWithCredential(credential).then(function() {
-            }).catch(function(error) {
-            });
 
             var flag1 = false;
             var flag2 = false;
